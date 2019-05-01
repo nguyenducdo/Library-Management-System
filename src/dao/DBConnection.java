@@ -4,6 +4,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.security.auth.login.Configuration;
+
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
@@ -46,4 +48,5 @@ public class DBConnection {
             System.out.println("Cannot close db access");
         }
 	}
+	
 }
