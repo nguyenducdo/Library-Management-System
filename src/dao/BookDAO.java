@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 import model.Book;
 import model.BookDTO;
+import model.Category;
 
 public class BookDAO{
 
@@ -79,5 +80,31 @@ public class BookDAO{
 		}
 		
 		return listBookDTO;
+	}
+	
+	public List<Category> getAllCategory(){
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Category> listCategories = null;
+		try {
+			ps = (PreparedStatement) cnn.prepareStatement("SELECT * FROM category");
+			rs = ps.executeQuery();
+			listCategories = new ArrayList<>();
+			String nameCategory;
+			int id_category;
+			while(rs.next()) {
+				id_category = rs.getInt("id_category");
+				nameCategory = rs.getString("name");
+				listCategories.add(new Category(id_category, nameCategory));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+		
+		return listCategories;
 	}
 }

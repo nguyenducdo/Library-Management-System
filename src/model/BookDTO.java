@@ -17,11 +17,11 @@ public class BookDTO extends Book{
 		this.namePublisher = name;
 	}
 	
-	public String getNameCateGory() {
+	public String getNameCategory() {
 		return nameCategory;
 	}
 	
-	public void setNameCateGory(String name) {
+	public void setNameCategory(String name) {
 		this.nameCategory = name;
 	}
 }

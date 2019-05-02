@@ -1,21 +1,30 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import dao.BookDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.SelectionModel;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import model.Book;
 import model.BookDTO;
+import model.Category;
 
 public class BookInfoController implements Initializable{
 
@@ -38,40 +47,68 @@ public class BookInfoController implements Initializable{
 	@FXML
 	private TableColumn<BookDTO, Integer> quantityCol;
 	
+	private ObservableList<BookDTO> listBook;
+	private final BookDAO bookDAO = new BookDAO();
+	
+	public BookDAO getBookDAO() {
+		return bookDAO;
+	}
+	
+	@FXML
+	private Tab tabBooks,tabCategories;
+	@FXML
+	private TabPane tabPane;
+	
+	@FXML
+	private Button btnBook;
+	@FXML
+	private Button btnCategories, btnButton;
+	
+	@FXML
+	private TableView<Category> tbvCategories;
+	
+	@FXML
+	private TableColumn<Category, Integer> idCategoryCol;
+	@FXML
+	private TableColumn<Category, String> nameCategoryCol2;
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-//		if(idBookCol == null) {
-//			System.out.println("null cmnr");
-////			System.exit(0);
-//		}
+		
 		idBookCol.setCellValueFactory(new PropertyValueFactory<BookDTO,String>("idBook"));
-		idBookCol.setMaxWidth(100);
 		idIsbnCol.setCellValueFactory(new PropertyValueFactory<BookDTO,String>("idIsbn"));
-		idIsbnCol.setMaxWidth(100);
 		nameCol.setCellValueFactory(new PropertyValueFactory<BookDTO,String>("name"));
-		nameCol.setMaxWidth(200);
-		authorCol.setCellValueFactory(new PropertyValueFactory<BookDTO,String>("author"));
-		authorCol.setMaxWidth(200);
-		namePublisherCol.setCellValueFactory(new PropertyValueFactory<BookDTO,String>("namePublisher"));
-		namePublisherCol.setMaxWidth(100);
-		nameCategoryCol.setCellValueFactory(new PropertyValueFactory<BookDTO, String>("nameCategory"));
-		nameCategoryCol.setMaxWidth(100);
-		publishingYearCol.setCellValueFactory(new PropertyValueFactory<BookDTO,Date>("publishingYear"));
-		publishingYearCol.setMaxWidth(100);
-		quantityCol.setCellValueFactory(new PropertyValueFactory<BookDTO,Integer>("quantity"));
-		quantityCol.setMaxWidth(100);
-		
-//		ObservableList<BookDTO> listBook = FXCollections.observableArrayList(new BookDAO().getAllBookDTO());
-		ObservableList<BookDTO> listBook = FXCollections.observableArrayList(new BookDTO(new Book("efwfwe", "dadewf", "fehfe", "fruiehgr", 1, 2, new Date(22222222), 30), "namepublisher", "name category"));
-		for(BookDTO x : listBook) {
-			System.out.println(x.getNameCateGory());
-		}
-		tbvBookInfo.setItems(listBook);
-//		tbvBookInfo.getColumns().addAll(idBookCol,idIsbnCol,nameCol,authorCol,namePublisherCol,nameCategoryCol,publishingYearCol,quantityCol);
-		
-		System.out.println(nameCategoryCol.getCellData(1));
-		System.out.println(namePublisherCol.getCellData(1));
-	}
 
+		authorCol.setCellValueFactory(new PropertyValueFactory<BookDTO,String>("author"));
+
+		namePublisherCol.setCellValueFactory(new PropertyValueFactory<BookDTO,String>("namePublisher"));
+
+		nameCategoryCol.setCellValueFactory(new PropertyValueFactory<BookDTO, String>("nameCategory"));
+
+		publishingYearCol.setCellValueFactory(new PropertyValueFactory<BookDTO,Date>("publishingYear"));
+
+		quantityCol.setCellValueFactory(new PropertyValueFactory<BookDTO,Integer>("quantity"));
+
+		
+		ObservableList<BookDTO> listBook = FXCollections.observableArrayList(bookDAO.getAllBookDTO());
+		tbvBookInfo.setItems(listBook);
+		
+		idCategoryCol.setCellValueFactory(new PropertyValueFactory<Category, Integer>("idCategory"));
+		nameCategoryCol2.setCellValueFactory(new PropertyValueFactory<Category, String>("nameCategory"));
+		
+		ObservableList<Category> listCategories = FXCollections.observableArrayList(bookDAO.getAllCategory());
+		tbvCategories.setItems(listCategories);
+		
+		}
+	
+	public void showTab(ActionEvent e) {
+		SelectionModel model = tabPane.getSelectionModel();
+		if(e.getSource() == btnBook) {
+			model.select(tabBooks);
+		}
+		else if(e.getSource() == btnCategories) model.select(tabCategories);
+		
+	}
+	
 }

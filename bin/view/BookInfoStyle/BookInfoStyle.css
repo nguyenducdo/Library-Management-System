@@ -4,9 +4,16 @@
 }
 .button:hover
 {
--fx-background-color : #99ffcc ;
+-fx-border-color: #0044cc;
+-fx-border-radius: 20px;
 }
 .button:pressed
 {
 -fx-background-color : #4dd2ff ;
+-fx-background-radius: 20px;
+-fx-border-color: transparent;
+}
+
+.label{
+-fx-background-color: #66cc99;
 }
