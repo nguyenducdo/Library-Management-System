@@ -82,21 +82,39 @@ public class BookDAO{
 		return listBookDTO;
 	}
 	
-	public List<Category> getAllCategory(){
+	public <T> List<BookDTO> searchBy(String column, T keyw){
+		if(column == null || keyw == null) return getAllBookDTO();
+		String condition;
+		if(keyw instanceof String) {
+			condition = column +" LIKE '%"+keyw+"%'";
+		}else {
+			condition = column + "= '"+keyw+"'";
+		}
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ArrayList<Category> listCategories = null;
+		ArrayList<BookDTO> listBookDTO = null;
 		try {
-			ps = (PreparedStatement) cnn.prepareStatement("SELECT * FROM category");
+			String query = "SELECT * FROM book,category,publisher WHERE book.id_category = category.id_category AND book.id_publisher = publisher.id_publisher AND " + condition;
+			System.out.println(query);
+			ps = (PreparedStatement) cnn.prepareStatement(query);
 			rs = ps.executeQuery();
-			listCategories = new ArrayList<>();
-			String nameCategory;
-			int id_category;
+			listBookDTO = new ArrayList<>();
+			String id_book,id_isbn,name,author,namePublisher,nameCategory;
+			int id_category,id_publisher,quantity;
+			Date publishing_year;
 			while(rs.next()) {
-				id_category = rs.getInt("id_category");
-				nameCategory = rs.getString("name");
-				listCategories.add(new Category(id_category, nameCategory));
+				id_book = rs.getString("id_book");
+				id_isbn = rs.getString("id_isbn");
+				name = rs.getString("book.name");
+				author = rs.getString("author");
+				id_category = rs.getInt("book.id_category");
+				id_publisher = rs.getInt("book.id_publisher");
+				namePublisher = rs.getString("publisher.name");
+				nameCategory = rs.getString("category.name");
+				quantity = rs.getInt("quantity");
+				publishing_year = rs.getDate("publishing_year");
+				listBookDTO.add(new BookDTO(new Book(id_book,id_isbn,name,author,id_category,id_publisher,publishing_year,quantity), namePublisher,nameCategory));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -105,6 +123,7 @@ public class BookDAO{
 			DBConnection.close(rs, ps, cnn);
 		}
 		
-		return listCategories;
+		return listBookDTO;
 	}
+	
 }
