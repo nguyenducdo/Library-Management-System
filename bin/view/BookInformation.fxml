@@ -19,6 +19,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
@@ -122,14 +123,89 @@
                         </BorderPane>
                      </content>
                 </Tab>
-                  <Tab text="Publisher">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                    </content>
+                  <Tab fx:id="tabPublisher" text="Publisher">
+                     <content>
+                        <BorderPane prefHeight="404.0" prefWidth="735.0">
+                           <center>
+                              <TableView fx:id="tbvPublisher" onMouseClicked="#clickEvtHandle" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <columns>
+                                    <TableColumn fx:id="idPublisherCol" maxWidth="200.0" minWidth="100.0" prefWidth="200.0" text="ID" />
+                                    <TableColumn fx:id="namePublisherColumnInPublisherTab" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="250.0" text="Name" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </center>
+                           <left>
+                              <AnchorPane prefHeight="407.0" prefWidth="256.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutY="34.0" prefHeight="0.0" prefWidth="200.0" text="Information" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="tfSearchPublisher" layoutX="1.0" layoutY="289.0" onAction="#searchPublisher" onKeyReleased="#keyEvtHandle" prefHeight="33.0" prefWidth="257.0" promptText="Enter name of Publisher..." />
+                                    <Button fx:id="btnSearchPublisher" layoutX="90.0" layoutY="329.0" mnemonicParsing="false" onAction="#searchPublisher" text="Search">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="SEARCH" size="14" />
+                                       </graphic>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <GridPane layoutX="14.0" layoutY="97.0" prefHeight="183.0" prefWidth="258.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Address :" wrapText="true" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lbAddressPublisher" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="TOP_LEFT" layoutX="10.0" layoutY="68.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Email :" wrapText="true" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lbEmailPublisher" alignment="TOP_LEFT" layoutX="96.0" layoutY="68.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="TOP_LEFT" layoutX="10.0" layoutY="138.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Name :" wrapText="true">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lbNamePublisher" alignment="TOP_LEFT" layoutX="10.0" layoutY="138.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                                             <font>
+                                                <Font name="System Italic" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </BorderPane.margin>
+                              </AnchorPane>
+                           </left>
+                        </BorderPane>
+                     </content>
                   </Tab>
               </tabs>
             </TabPane>
@@ -297,7 +373,7 @@
                   <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="20.0" text="Them loai sach" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                  <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="20.0" text="Them nha xuat ban" GridPane.columnIndex="1" GridPane.columnSpan="2">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -312,7 +388,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sua TT loai sach" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sua TT nha xuat ban" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
@@ -324,7 +400,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Xoa loai sach" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                  <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Xoa nha xuat ban" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
@@ -341,7 +417,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnCategories1" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTab" GridPane.rowSpan="3">
+                  <Button fx:id="btnPublisher" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTab" GridPane.rowSpan="3">
                      <graphic>
                         <FontAwesomeIconView fill="#338aff" glyphName="SEND_ALT" size="45" />
                      </graphic>
@@ -357,4 +433,15 @@
          </BorderPane.margin>
       </GridPane>
    </top>
+   <bottom>
+      <HBox prefHeight="25.0" prefWidth="800.0" style="-fx-background-color: #66cc99;" BorderPane.alignment="CENTER">
+         <children>
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" style="-fx-background-color: transparent;" text="Turn Back">
+               <graphic>
+                  <FontAwesomeIconView fill="#ee0606" glyphName="REPLY" size="16" wrappingWidth="21.0" />
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>

@@ -17,3 +17,7 @@
 .label{
 -fx-background-color: #66cc99;
 }
+
+#btnBack:hover{
+	-fx-color-label-visible: #2dd4ff;
+}

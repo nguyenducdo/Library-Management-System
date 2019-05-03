@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import dao.BookDAO;
 import dao.CategoryDAO;
+import dao.PublisherDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.SingleSelectionModel;
@@ -28,21 +30,23 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import model.Book;
 import model.BookDTO;
 import model.Category;
+import model.Publisher;
 
 public class BookInfoController implements Initializable{
 	
 	//Declare DAO
 	private final BookDAO bookDAO = new BookDAO();
 	private final CategoryDAO categoryDAO = new CategoryDAO();
-	
+	private final PublisherDAO publisherDAO = new PublisherDAO();
 	
 	// get Tab Pane & tabs in pane
 	@FXML
-	private Tab tabBooks,tabCategories;
+	private Tab tabBooks,tabCategories,tabPublisher;
 	@FXML
 	private TabPane tabPane;
 	
@@ -79,17 +83,27 @@ public class BookInfoController implements Initializable{
 	
 	private ObservableList<Category> listCategories;
 	
-	// get comboBox
+	
+	// get table, columns, data list in tabPublisher
 	@FXML
-	private ComboBox<String> cbSearch;
+	private TableView<Publisher> tbvPublisher;
+	@FXML
+	private TableColumn<Publisher, Integer> idPublisherCol;
+	@FXML
+	private TableColumn<Publisher, String> namePublisherColumnInPublisherTab;
+	
+	private ObservableList<Publisher> listPublishers;
+
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initTbvBookInfo();
 		initTbvCategories();
+		initTbvPublisher();
 		initCbSearch();
 	}
 
+	
 	private void initTbvBookInfo() {
 		idBookCol.setCellValueFactory(new PropertyValueFactory<BookDTO,String>("idBook"));
 		idIsbnCol.setCellValueFactory(new PropertyValueFactory<BookDTO,String>("idIsbn"));
@@ -118,6 +132,16 @@ public class BookInfoController implements Initializable{
 		tbvCategories.setItems(listCategories);
 	}
 	
+	private void initTbvPublisher() {
+		idPublisherCol.setCellValueFactory(new PropertyValueFactory<Publisher, Integer>("idPublisher"));
+		namePublisherColumnInPublisherTab.setCellValueFactory(new PropertyValueFactory<Publisher, String>("namePublisher"));
+		listPublishers = FXCollections.observableArrayList(publisherDAO.getAllPublisher());
+		tbvPublisher.setItems(listPublishers);
+	}
+	
+	// get comboBox
+	@FXML
+	private ComboBox<String> cbSearch;	
 	private void initCbSearch() {
 		ObservableList<String> list = FXCollections.observableArrayList(new String[]{"ID","ID-ISBN","Name","Author","Publisher","Category"});
 		cbSearch.setItems(list);
@@ -133,23 +157,45 @@ public class BookInfoController implements Initializable{
 		}else if(tab == tabCategories) {
 			listCategories.clear();
 			listCategories.addAll(categoryDAO.getAllCategory());
+		}else if(tab == tabPublisher) {
+			listPublishers.clear();
+			listPublishers.addAll(publisherDAO.getAllPublisher());
+			lbNamePublisher.setText("");
+			lbAddressPublisher.setText("");
+			lbEmailPublisher.setText("");
 		}
 		
 	}
 	
 	
 	@FXML
-	private Button btnCategories;
-	@FXML
-	private Button btnBook;
+	private Button btnCategories,btnBook,btnPublisher;
 	
 	public void showTab(ActionEvent evt) {
 		SelectionModel<Tab> model = tabPane.getSelectionModel();
 		if(evt.getSource() == btnBook) {
 			model.select(tabBooks);
 		}
-		else if(evt.getSource() == btnCategories) model.select(tabCategories);
+		else if(evt.getSource() == btnCategories) {
+			model.select(tabCategories);
+		}else if(evt.getSource() == btnPublisher) {
+			model.select(tabPublisher);
+		}
 		
+	}
+
+	public void keyEvtHandle(KeyEvent evt) {
+		
+		if(evt.getCode() == KeyCode.BACK_SPACE) {
+			if(evt.getSource() == tfSearchBooks) {
+				if(tfSearchBooks.getText().equals("")) refresh(tabBooks);
+			}else if(evt.getSource() == tfSearchCategories){
+				if(tfSearchCategories.getText().equals("")) refresh(tabCategories);
+			}else if(evt.getSource() == tfSearchPublisher) {
+				if(tfSearchPublisher.getText().equals("")) refresh(tabPublisher);
+			}
+			
+		}
 	}
 	
 	
@@ -188,17 +234,6 @@ public class BookInfoController implements Initializable{
 		listBook.addAll(bookDAO.searchBy(column,key));
 	}
 	
-	public void keyEvtHandle(KeyEvent evt) {
-		
-		if(evt.getCode() == KeyCode.BACK_SPACE) {
-			if(evt.getSource() == tfSearchBooks) {
-				if(tfSearchBooks.getText().equals("")) refresh(tabBooks);
-			}else if(evt.getSource() == tfSearchCategories){
-				if(tfSearchCategories.getText().equals("")) refresh(tabCategories);
-			}
-			
-		}
-	}
 	
 	@FXML
 	private RadioButton radioSearchByID, radioSearchByName;
@@ -227,4 +262,27 @@ public class BookInfoController implements Initializable{
 		listCategories.addAll(listData);
 	}
 	
+	@FXML
+	private TextField tfSearchPublisher;
+	public void searchPublisher() {
+		String key = tfSearchPublisher.getText();
+		if(key.equals("")) {
+			refresh(tabPublisher);
+			return;
+		}
+		listPublishers.clear();
+		listPublishers.addAll(publisherDAO.searchBy("name", key));
+	}
+	@FXML
+	private Label lbNamePublisher, lbAddressPublisher, lbEmailPublisher;
+	public void clickEvtHandle(MouseEvent evt) {
+		Publisher selected = tbvPublisher.getSelectionModel().getSelectedItem();
+		if(selected == null) {
+			System.out.println("Not selected");
+			return;
+		}
+		lbNamePublisher.setText(selected.getNamePublisher());
+		lbAddressPublisher.setText(selected.getAddress());
+		lbEmailPublisher.setText(selected.getEmail());
+	}
 }
