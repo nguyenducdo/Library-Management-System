@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="680.0" prefWidth="1100.0" style="-fx-background-color: #fff; -fx-background-radius: 100px;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="670.0" prefWidth="586.0" style="-fx-background-color: #4dd2ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="159.0" fitWidth="146.0" layoutX="205.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@HomeDecorate/files-512.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="39.0" layoutY="300.0" text="Libary Management System" textFill="WHITE">
+               <font>
+                  <Font size="39.0" />
+               </font>
+            </Label>
+            <Label layoutX="39.0" layoutY="369.0" text="HANOI UNIVERSITY OF SCIENCE AND TECHONOGY" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="783.0" layoutY="43.0" text="Login" textFill="#616060">
+         <font>
+            <Font name="System Bold" size="45.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER_RIGHT" layoutX="681.0" layoutY="162.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #ffff; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 3px 0px;">
+         <children>
+            <TextField fx:id="tfUsername" promptText="username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <FontAwesomeIconView fill="#616060" glyphName="USER" size="20">
+               <HBox.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </FontAwesomeIconView>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" layoutX="681.0" layoutY="236.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #ffff; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 3px 0px;">
+         <children>
+            <PasswordField fx:id="pfPass" promptText="password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </PasswordField>
+            <FontAwesomeIconView fill="#616060" glyphName="LOCK" size="20">
+               <HBox.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </FontAwesomeIconView>
+         </children>
+      </HBox>
+      <Button fx:id="btnLogin" layoutX="681.0" layoutY="318.0" mnemonicParsing="false" onAction="#login" prefHeight="44.0" prefWidth="300.0" style="-fx-background-color: #f49242; -fx-background-radius: 100px;" text="Login" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <HBox alignment="CENTER" layoutX="681.0" layoutY="387.0" prefHeight="31.0" prefWidth="300.0">
+         <children>
+            <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Forgot Password" textFill="#047272">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <graphic>
+                  <MaterialDesignIconView glyphName="MAGNIFY" size="25" wrappingWidth="24.0" />
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <Label layoutX="912.0" layoutY="627.0" text="Designed by SDD" textFill="#5b5b5b">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <MaterialDesignIconView fill="#5e5e5e" glyphName="BRUSH" layoutX="1066.0" layoutY="648.0" size="20" text="" />
+      <HBox alignment="CENTER" layoutX="600.0" layoutY="625.0" prefHeight="31.0" prefWidth="81.0">
+         <children>
+            <FontAwesomeIconView fill="#ea483c" glyphName="CIRCLE" />
+            <FontAwesomeIconView fill="#4dd2ff" glyphName="CIRCLE">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </FontAwesomeIconView>
+            <FontAwesomeIconView fill="#f49242" glyphName="CIRCLE">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </FontAwesomeIconView>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

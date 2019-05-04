@@ -14,8 +14,8 @@ public class Main extends Application{
 	public void start(Stage primaryStage){
 //		 TODO Auto-generated method stub
 		try {
-	        Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
-	            Scene scene = new Scene(root, 800, 560);
+	        Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+	        Scene scene = new Scene(root);
 	        primaryStage.setTitle("Library Management System");
 	        primaryStage.setScene(scene);
 	        primaryStage.show();

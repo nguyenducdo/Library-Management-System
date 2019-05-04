@@ -50,7 +50,8 @@ public class CategoryDAO {
 		ResultSet rs = null;
 		ArrayList<Category> listCategories = null;
 		try {
-			ps = (PreparedStatement) cnn.prepareStatement("SELECT * FROM category WHERE " + condition);
+			ps = (PreparedStatement) cnn.prepareStatement("SELECT * FROM category WHERE ?");
+			ps.setString(1, condition);
 			rs = ps.executeQuery();
 			listCategories = new ArrayList<>();
 			String nameCategory;

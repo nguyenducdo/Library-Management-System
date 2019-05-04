@@ -1,0 +1,37 @@
+.button
+{
+-fx-background-color : transparent;
+-fx-border-radius: 20px;
+-fx-background-radius: 20px;
+}
+.button:hover
+{
+-fx-border-color: #0044cc;
+
+}
+.button:pressed
+{
+-fx-background-color : #4dd2ff ;
+-fx-border-color: transparent;
+}
+
+.label{
+-fx-background-color: #66d9ff;
+}
+
+.button.btnBack{
+	-fx-border-radius: 0px;
+	-fx-background-radius: 0px;
+	-fx-background-color: transparent;
+	-fx-border-color:  #8c8c8c;
+	-fx-border-width:  1px 0px 0px 0px;
+}
+
+.button.btnBack:hover{
+	-fx-background-color: #8c8c8c;
+}
+
+.button.btnBack:pressed{
+	-fx-background-color: #bfbfbf;
+	-fx-border-color: transparent;
+}

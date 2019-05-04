@@ -213,7 +213,7 @@
       </BorderPane>
    </center>
    <top>
-      <GridPane prefHeight="98.0" prefWidth="800.0" stylesheets="@BookInfoStyle/BookInfoStyle.css" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="98.0" prefWidth="800.0" stylesheets="@BookInfoDecorate/BookInfoStyle.css" BorderPane.alignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -246,7 +246,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@BookInfoStyle/addbook.png" />
+                              <Image url="@BookInfoDecorate/addbook.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -258,7 +258,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@BookInfoStyle/editbook.png" />
+                              <Image url="@BookInfoDecorate/editbook.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -270,7 +270,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@BookInfoStyle/removebook.png" />
+                              <Image url="@BookInfoDecorate/removebook.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -313,7 +313,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@BookInfoStyle/addbook.png" />
+                              <Image url="@BookInfoDecorate/addbook.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -325,7 +325,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@BookInfoStyle/editbook.png" />
+                              <Image url="@BookInfoDecorate/editbook.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -337,7 +337,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@BookInfoStyle/removebook.png" />
+                              <Image url="@BookInfoDecorate/removebook.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -383,7 +383,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@BookInfoStyle/addbook.png" />
+                              <Image url="@BookInfoDecorate/addbook.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -395,7 +395,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@BookInfoStyle/editbook.png" />
+                              <Image url="@BookInfoDecorate/editbook.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -407,7 +407,7 @@
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@BookInfoStyle/removebook.png" />
+                              <Image url="@BookInfoDecorate/removebook.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -434,9 +434,9 @@
       </GridPane>
    </top>
    <bottom>
-      <HBox prefHeight="25.0" prefWidth="800.0" style="-fx-background-color: #66cc99;" BorderPane.alignment="CENTER">
+      <HBox prefHeight="25.0" prefWidth="800.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" style="-fx-background-color: transparent;" text="Turn Back">
+            <Button fx:id="btnBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#turnBack" prefHeight="26.0" prefWidth="103.0" styleClass="btnBack" stylesheets="@BookInfoDecorate/BookInfoStyle.css" text="Turn Back">
                <graphic>
                   <FontAwesomeIconView fill="#ee0606" glyphName="REPLY" size="16" wrappingWidth="21.0" />
                </graphic>

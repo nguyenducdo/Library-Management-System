@@ -24,32 +24,32 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="btnBookInformation" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeStyle/HomeStyle.css" text="Book Information">
+            <Button fx:id="btnBookInformation" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Book Information">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="HOME" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btnStudents" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeStyle/HomeStyle.css" text="Text" GridPane.columnIndex="1">
+            <Button fx:id="btnStudents" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.columnIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="GROUP" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btn_Timetable" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeStyle/HomeStyle.css" text="Text" GridPane.columnIndex="2">
+            <Button fx:id="btn_Timetable" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.columnIndex="2">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="CALENDAR_CHECK_ALT" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btnSettings" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeStyle/HomeStyle.css" text="Text" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btnSettings" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="SLIDERS" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btnUpdate" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeStyle/HomeStyle.css" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btnUpdate" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="BUG" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btnClasses" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeStyle/HomeStyle.css" text="Text" GridPane.rowIndex="1">
+            <Button fx:id="btnClasses" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="INDENT" size="60" />
                </graphic>
@@ -70,7 +70,7 @@
             </Label>
             <ImageView fitHeight="150.0" fitWidth="160.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
-                  <Image url="@HomeStyle/files-512.png" />
+                  <Image url="@HomeDecorate/files-512.png" />
                </image>
             </ImageView>
          </children>
