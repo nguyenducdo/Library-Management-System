@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import com.sun.javafx.PlatformUtil;
@@ -15,6 +16,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,8 +25,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.control.SingleSelectionModel;
@@ -36,10 +41,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
 import model.BookDTO;
@@ -58,6 +65,11 @@ public class BookInfoController implements Initializable{
 	private Tab tabBooks,tabCategories,tabPublisher;
 	@FXML
 	private TabPane tabPane;
+	
+	//getter
+	public Tab getTabBooks() {
+		return tabBooks;
+	}
 	
 	// get table, columns, data list in tabBooks
 	@FXML
@@ -78,7 +90,10 @@ public class BookInfoController implements Initializable{
 	private TableColumn<BookDTO, Date> publishingYearCol;
 	@FXML
 	private TableColumn<BookDTO, Integer> quantityCol;
-
+	@FXML
+	private ContextMenu contextBook;
+	@FXML
+	private MenuItem itemModify,itemDelete;
 	private ObservableList<BookDTO> listBook;
 	
 	
@@ -131,6 +146,15 @@ public class BookInfoController implements Initializable{
 		
 		listBook = FXCollections.observableArrayList(bookDAO.getAllBookDTO());
 		tbvBookInfo.setItems(listBook);
+		
+		tbvBookInfo.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+			@Override
+			public void handle(ContextMenuEvent event) {
+				// TODO Auto-generated method stub
+				contextBook.show(tbvBookInfo,event.getScreenX(),event.getScreenY());
+			}
+		});
 	}
 	
 	private void initTbvCategories() {
@@ -156,7 +180,7 @@ public class BookInfoController implements Initializable{
 		cbSearch.setItems(list);
 	}
 	
-	private void refresh(Tab tab) {
+	public void refresh(Tab tab) {
 		if(tab == tabBooks) {
 			listBook.clear();
 			listBook.addAll(bookDAO.getAllBookDTO());
@@ -304,5 +328,32 @@ public class BookInfoController implements Initializable{
 		lbNamePublisher.setText(selected.getNamePublisher());
 		lbAddressPublisher.setText(selected.getAddress());
 		lbEmailPublisher.setText(selected.getEmail());
+	}
+	
+	public void showAddBookStage(ActionEvent evt) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/view/DialogModifyBook/StageAddBook.fxml"));
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteBook(ActionEvent evt) {
+		if(evt.getSource() == itemDelete) {
+			BookDTO book = tbvBookInfo.getSelectionModel().getSelectedItem();
+			
+			Alert alert = new Alert(AlertType.INFORMATION, "delete " +book.toString(), ButtonType.YES, ButtonType.NO);
+			alert.setHeaderText(null);
+			Optional<ButtonType> option = alert.showAndWait();
+			if(option.get() == ButtonType.YES) {
+				bookDAO.deleteBook(book);
+				refresh(tabBooks);
+			}
+		}
 	}
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+import com.sun.javafx.beans.IDProperty;
 
 import model.Book;
 import model.BookDTO;
@@ -124,6 +125,51 @@ public class BookDAO{
 		}
 		
 		return listBookDTO;
+	}
+	
+	public void addBook(Book newBook) {
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			
+			String id_isbn,name,author;
+			int id_category,id_publisher,quantity;
+			Date publishing_year;
+			id_isbn = newBook.getIdIsbn();
+			name = newBook.getName();
+			author = newBook.getAuthor();
+			id_category = newBook.getIdCategory();
+			id_publisher = newBook.getIdPublisher();
+			quantity = newBook.getQuantity();
+			publishing_year = newBook.getPublishingYear();
+			String query = "INSERT INTO book VALUES (null,'"+id_isbn+"','"+name+"','"+author+"','"+id_category+"','"+id_publisher+"','"+publishing_year+"','"+quantity+"')";
+//			System.out.println(query);
+			ps = (PreparedStatement) cnn.prepareStatement(query);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+	}
+	
+	public void deleteBook(Book book) {
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String query = "DELETE FROM book WHERE id_book = '"+book.getIdBook()+"'";
+//			System.out.println(query);
+			ps = (PreparedStatement) cnn.prepareStatement(query);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
 	}
 	
 }

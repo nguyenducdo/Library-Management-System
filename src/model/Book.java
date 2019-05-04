@@ -103,4 +103,11 @@ public class Book {
 		this.quantity = quantity;
 	}
 
+	@Override
+	public String toString() {
+		return "Book [idBook=" + idBook + ", idIsbn=" + idIsbn + ", name=" + name + ", author=" + author
+				+ ", idCategory=" + idCategory + ", idPublisher=" + idPublisher + ", publishingYear=" + publishingYear
+				+ ", quantity=" + quantity + "]";
+	}
+
 }
