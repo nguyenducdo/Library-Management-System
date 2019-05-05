@@ -35,11 +35,6 @@ public class StaffDAO {
 				int gender = rs.getInt("gender");
 				staff = new Staff(id, name, address, tel, email, username, password, gender);
 			}else {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setHeaderText(null);
-				alert.setContentText("Invalid username or password");
-				alert.getButtonTypes().setAll(ButtonType.CANCEL);
-				alert.showAndWait();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

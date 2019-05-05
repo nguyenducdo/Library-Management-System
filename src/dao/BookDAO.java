@@ -41,7 +41,7 @@ public class BookDAO{
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("ISBN Duplicate");
 		}finally {
 			DBConnection.close(rs, ps, cnn);
 		}
@@ -162,6 +162,35 @@ public class BookDAO{
 		try {
 			String query = "DELETE FROM book WHERE id_book = '"+book.getIdBook()+"'";
 //			System.out.println(query);
+			ps = (PreparedStatement) cnn.prepareStatement(query);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+	}
+	
+	public void modifyBook(Book book) {
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String id_isbn,name,author;
+			int id_category,id_publisher,quantity;
+			Date publishing_year;
+			id_isbn = book.getIdIsbn();
+			name = book.getName();
+			author = book.getAuthor();
+			id_category = book.getIdCategory();
+			id_publisher = book.getIdPublisher();
+			quantity = book.getQuantity();
+			publishing_year = book.getPublishingYear();
+			String query = "UPDATE book SET id_isbn = '" +id_isbn+"', name = '"+name+
+					"', author = '"+author+
+					"', id_category = '"+id_category+"', id_publisher = '"+id_publisher+"', quantity = '"+quantity+"', publishing_year = '"+publishing_year+"' WHERE id_book = '"+book.getIdBook()+"'";
+			System.out.println(query);
 			ps = (PreparedStatement) cnn.prepareStatement(query);
 			ps.executeUpdate();
 		} catch (SQLException e) {

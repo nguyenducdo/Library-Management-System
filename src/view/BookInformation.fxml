@@ -52,7 +52,7 @@
                                  <contextMenu>
                                     <ContextMenu fx:id="contextBook">
                                        <items>
-                                          <MenuItem fx:id="itemModify" mnemonicParsing="false" text="Modify book" />
+                                          <MenuItem fx:id="itemModify" mnemonicParsing="false" onAction="#modifyBook" text="Modify book" />
                                           <MenuItem fx:id="itemDelete" mnemonicParsing="false" onAction="#deleteBook" text="Delete" />
                                           <MenuItem mnemonicParsing="false" text="Unspecified Action" />
                                        </items>

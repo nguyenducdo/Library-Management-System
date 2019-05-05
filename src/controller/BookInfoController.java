@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import com.sun.javafx.PlatformUtil;
 
+import controller.ModifyBookController.ModifyBookController;
 import dao.BookDAO;
 import dao.CategoryDAO;
 import dao.PublisherDAO;
@@ -181,7 +182,9 @@ public class BookInfoController implements Initializable{
 	}
 	
 	public void refresh(Tab tab) {
+		System.out.println("refresh...");
 		if(tab == tabBooks) {
+			System.out.println("Tab book...");
 			listBook.clear();
 			listBook.addAll(bookDAO.getAllBookDTO());
 			SelectionModel<String> model = cbSearch.getSelectionModel();
@@ -336,7 +339,8 @@ public class BookInfoController implements Initializable{
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root));
 			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.show();
+			stage.showAndWait();
+			refresh(tabBooks);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -354,6 +358,24 @@ public class BookInfoController implements Initializable{
 				bookDAO.deleteBook(book);
 				refresh(tabBooks);
 			}
+		}
+	}
+	
+	public void modifyBook(ActionEvent evt) {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/view/DialogModifyBook/StageModifyBookInfo.fxml"));
+		try {
+			Parent root = loader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			ModifyBookController controller = loader.getController();
+			BookDTO book = tbvBookInfo.getSelectionModel().getSelectedItem();
+			controller.setBook(book);
+			stage.showAndWait();
+			refresh(tabBooks);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

@@ -9,10 +9,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import model.Staff;
 
 public class LoginController {
 	final StaffDAO staffDAO = new StaffDAO(); 
@@ -22,10 +26,29 @@ public class LoginController {
 	private TextField tfUsername;
 	@FXML
 	private PasswordField pfPass;
+	
+	private Staff staff = null;
+	
+	public final Staff getStaff() {
+		return staff;
+	}
+
+
+
+	public final void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+
+
+
 	public void login(ActionEvent evt) {
 		try {
-			if(staffDAO.getUser(tfUsername.getText(), pfPass.getText())==null) {
-				System.out.println("Sai ten dang nhap hoac mat khau");
+			if((staff = staffDAO.getUser(tfUsername.getText(), pfPass.getText()))==null) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText(null);
+				alert.setContentText("Username or password is wrong");
+				alert.getButtonTypes().setAll(ButtonType.OK);
+				alert.showAndWait();
 				return;
 			}
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
