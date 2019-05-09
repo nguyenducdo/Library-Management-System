@@ -23,17 +23,21 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
+import model.Staff;
 
 public class HomeController	implements Initializable{
 	@FXML
-	private Button btnBookInformation;
-	private Parent parentBookInfo;
+	private Button btnBookInformation, btnStaffInformation;
+	private Parent parentBookInfo, parentStaffInfo;
+	
+	private static int idStaffLogin = -1;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		try {
 			parentBookInfo = FXMLLoader.load(getClass().getResource("/view/BookInformation.fxml"));
+//			parentStaffInfo = FXMLLoader.load(getClass().getResource("/view/StaffInformation.fxml"));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -53,11 +57,41 @@ public class HomeController	implements Initializable{
 		long start = System.currentTimeMillis();
 		Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
 		if(e.getSource() == btnBookInformation) {
-			System.out.println("Set scene");
 			stage.setScene(new Scene(parentBookInfo));
+		}
+		else if(e.getSource() == btnStaffInformation) {
+			FXMLLoader loader = new FXMLLoader();
+			try {
+				loader.setLocation(getClass().getResource("/view/StaffInformation.fxml"));
+				parentStaffInfo = loader.load();
+				StaffInfoController staffInfoController = loader.getController();
+				staffInfoController.setIdStaffLogin(idStaffLogin);
+				stage.setScene(new Scene(parentStaffInfo));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 //		t.interrupt();
 		long end = System.currentTimeMillis();
 		System.out.println("Time : "+(end-start));
 	}
+
+	/**
+	 * @return the idStaffLogin
+	 */
+	public final int getIdStaffLogin() {
+		return idStaffLogin;
+	}
+
+	/**
+	 * @param idStaffLogin the idStaffLogin to set
+	 */
+	public final void setIdStaffLogin(int idStaffLogin) {
+		this.idStaffLogin = idStaffLogin;
+	}
+
+	
+	
+	
 }

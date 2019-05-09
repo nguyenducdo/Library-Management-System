@@ -182,9 +182,7 @@ public class BookInfoController implements Initializable{
 	}
 	
 	public void refresh(Tab tab) {
-		System.out.println("refresh...");
 		if(tab == tabBooks) {
-			System.out.println("Tab book...");
 			listBook.clear();
 			listBook.addAll(bookDAO.getAllBookDTO());
 			SelectionModel<String> model = cbSearch.getSelectionModel();
@@ -335,7 +333,7 @@ public class BookInfoController implements Initializable{
 	
 	public void showAddBookStage(ActionEvent evt) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/view/DialogModifyBook/StageAddBook.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/view/StageUpdateBook/StageAddBook.fxml"));
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root));
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -363,7 +361,7 @@ public class BookInfoController implements Initializable{
 	
 	public void modifyBook(ActionEvent evt) {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/view/DialogModifyBook/StageModifyBookInfo.fxml"));
+		loader.setLocation(getClass().getResource("/view/StageUpdateBook/StageModifyBookInfo.fxml"));
 		try {
 			Parent root = loader.load();
 			Stage stage = new Stage();

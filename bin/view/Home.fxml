@@ -26,7 +26,7 @@
          <children>
             <Button fx:id="btnBookInformation" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Book Information">
                <graphic>
-                  <FontAwesomeIconView fill="#2d75e8" glyphName="GLOBE" size="60" />
+                  <FontAwesomeIconView fill="#2d75e8" glyphName="LEANPUB" size="60" />
                </graphic>
             </Button>
             <Button fx:id="btnStudents" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.columnIndex="1">
@@ -44,10 +44,13 @@
                   <FontAwesomeIconView fill="#2d75e8" glyphName="SLIDERS" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btnUpdate" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btnStaffInformation" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Staff Information" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <graphic>
-                  <FontAwesomeIconView fill="#2d75e8" glyphName="BUG" size="60" />
+                  <FontAwesomeIconView fill="#2d75e8" glyphName="USER_MD" size="60" />
                </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
             </Button>
             <Button fx:id="btnClasses" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.rowIndex="1">
                <graphic>

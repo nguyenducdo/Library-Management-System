@@ -1,11 +1,14 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import dao.StaffDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,8 +21,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.Staff;
 
-public class LoginController {
-	final StaffDAO staffDAO = new StaffDAO(); 
+public class LoginController implements Initializable{
+	private final StaffDAO staffDAO = new StaffDAO(); 
 	@FXML
 	private Button btnLogin;
 	@FXML
@@ -27,22 +30,15 @@ public class LoginController {
 	@FXML
 	private PasswordField pfPass;
 	
-	private Staff staff = null;
-	
-	public final Staff getStaff() {
-		return staff;
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
 	}
-
-
-
-	public final void setStaff(Staff staff) {
-		this.staff = staff;
-	}
-
-
 
 	public void login(ActionEvent evt) {
 		try {
+			Staff staff;
 			if((staff = staffDAO.getUser(tfUsername.getText(), pfPass.getText()))==null) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setHeaderText(null);
@@ -51,7 +47,11 @@ public class LoginController {
 				alert.showAndWait();
 				return;
 			}
-			Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/view/Home.fxml"));
+			Parent root = loader.load();
+			HomeController homeController = loader.getController();
+			homeController.setIdStaffLogin(staff.getId());
 			Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 			stage.setScene(new Scene(root));
 		} catch (IOException e) {
@@ -60,4 +60,5 @@ public class LoginController {
 		}
 		
 	}
+
 }

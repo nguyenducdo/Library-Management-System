@@ -12,6 +12,7 @@ and open the template in the editor.
 .button
 {
 -fx-background-color : #F3F3F3;
+-fx-font-size: 15px;
 }
 .button:hover
 {
