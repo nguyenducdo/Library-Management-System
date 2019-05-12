@@ -52,7 +52,6 @@ public class MemberDAO {
 		
 		try {
 			String query = "SELECT * FROM member WHERE "+ column + " LIKE '%"+key+"%'";
-			System.out.println(query);
 			ps = (PreparedStatement) cnn.prepareStatement(query);
 			rs = ps.executeQuery();
 			listMember = new ArrayList<>();
@@ -76,4 +75,62 @@ public class MemberDAO {
 		return listMember;
 	}
 	
+	public void update(Member member) {
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String query = "UPDATE member SET name=?, gender=?, address=?,email=?,tel=? WHERE id_member=?";
+			ps = (PreparedStatement) cnn.prepareStatement(query);
+			ps.setString(1, member.getName());
+			ps.setInt(2,member.getGender());
+			ps.setString(3,member.getAddress());
+			ps.setString(4,member.getEmail());
+			ps.setString(5,member.getTel());
+			ps.setString(6,member.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+	}
+	
+	public void add(Member member) {
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String query = "INSERT INTO member VALUES(null,?,?,?,?,?)";
+			ps = (PreparedStatement) cnn.prepareStatement(query);
+			ps.setString(1, member.getName());
+			ps.setInt(2,member.getGender());
+			ps.setString(3,member.getAddress());
+			ps.setString(4,member.getEmail());
+			ps.setString(5,member.getTel());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+	}
+	public void delete(Member member) {
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String query = "DELETE FROM member WHERE id_member = ?";
+			ps = (PreparedStatement) cnn.prepareStatement(query);
+			ps.setString(1, member.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+	}
 }

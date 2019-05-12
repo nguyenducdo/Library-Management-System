@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 import com.sun.javafx.PlatformUtil;
 
-import controller.ModifyBookController.ModifyBookController;
+import controller.UpdateBookController.ModifyBookController;
 import dao.BookDAO;
 import dao.CategoryDAO;
 import dao.PublisherDAO;
@@ -92,6 +92,8 @@ public class BookInfoController implements Initializable{
 	@FXML
 	private TableColumn<BookDTO, Integer> quantityCol;
 	@FXML
+	private TableColumn<BookDTO, Integer> remainingCol;
+	@FXML
 	private ContextMenu contextBook;
 	@FXML
 	private MenuItem itemModify,itemDelete;
@@ -143,6 +145,8 @@ public class BookInfoController implements Initializable{
 		publishingYearCol.setCellValueFactory(new PropertyValueFactory<BookDTO,Date>("publishingYear"));
 
 		quantityCol.setCellValueFactory(new PropertyValueFactory<BookDTO,Integer>("quantity"));
+		
+		remainingCol.setCellValueFactory(new PropertyValueFactory<BookDTO, Integer>("remaining"));
 
 		
 		listBook = FXCollections.observableArrayList(bookDAO.getAllBookDTO());

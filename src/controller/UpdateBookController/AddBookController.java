@@ -1,10 +1,15 @@
-package controller.ModifyBookController;
+package controller.UpdateBookController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.server.LoaderHandler;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.temporal.TemporalField;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import controller.BookInfoController;
@@ -19,18 +24,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import model.Book;
-import model.BookDTO;
 import model.Category;
 import model.Publisher;
 
-public class ModifyBookController implements Initializable{
+public class AddBookController implements Initializable{
 	@FXML
 	private TextField tfISBN, tfName, tfAuthor, tfQuantity;
 	@FXML
@@ -45,8 +49,6 @@ public class ModifyBookController implements Initializable{
 	private final CategoryDAO categoryDAO = new CategoryDAO();
 	private final PublisherDAO publisherDAO = new PublisherDAO();
 	private final BookDAO bookDAO = new BookDAO();
-	private Book modifiedBook;
-	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
@@ -69,19 +71,7 @@ public class ModifyBookController implements Initializable{
 		
 	}
 	
-	public void setBook(BookDTO modifiedBook) {
-		this.modifiedBook = modifiedBook;
-		tfISBN.setText(modifiedBook.getIdIsbn());
-		tfName.setText(modifiedBook.getName());
-		tfAuthor.setText(modifiedBook.getAuthor());
-		tfQuantity.setText(String.valueOf(modifiedBook.getQuantity()));
-		cbCategory.getSelectionModel().select(modifiedBook.getNameCategory());
-		cbPublisher.getSelectionModel().select(modifiedBook.getNamePublisher());
-		datePicker.setValue(modifiedBook.getPublishingYear().toLocalDate());
-	}
-	
-	public void modify(ActionEvent evt) {
-		
+	public void add(ActionEvent evt) {
 		String id_isbn = tfISBN.getText();
 		String name = tfName.getText();
 		String author = tfAuthor.getText();
@@ -118,19 +108,11 @@ public class ModifyBookController implements Initializable{
 			}
 		}
 		
-		Book book = new Book(modifiedBook.getIdBook(), id_isbn, name, author, id_category, id_publisher, publishing_year, quantity);
+		Book newBook = new Book(null, id_isbn, name, author, id_category, id_publisher, publishing_year, quantity);
+		bookDAO.addBook(newBook);
 		
-		
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Do you want to modify?", ButtonType.YES,ButtonType.NO);
-		alert.setHeaderText(null);
-		Optional<ButtonType> option = alert.showAndWait();
-		if(option.get() == ButtonType.NO) {
-			return;
-		}
-		bookDAO.modifyBook(book);
 		Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 		stage.close();
-		
 	}
 	
 	private boolean checkISBN(String ISBN) {
@@ -139,4 +121,5 @@ public class ModifyBookController implements Initializable{
 		}
 		return true;
 	}
+	
 }

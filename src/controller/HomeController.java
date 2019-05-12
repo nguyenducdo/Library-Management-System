@@ -35,13 +35,6 @@ public class HomeController	implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		try {
-			parentBookInfo = FXMLLoader.load(getClass().getResource("/view/BookInformation.fxml"));
-//			parentStaffInfo = FXMLLoader.load(getClass().getResource("/view/StaffInformation.fxml"));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 	}
 	
@@ -58,6 +51,7 @@ public class HomeController	implements Initializable{
 		Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
 		try {
 			if(e.getSource() == btnBookInformation) {
+				parentBookInfo = FXMLLoader.load(getClass().getResource("/view/BookInformation.fxml"));
 				stage.setScene(new Scene(parentBookInfo));
 			}
 			else if(e.getSource() == btnStaffInformation) {

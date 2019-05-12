@@ -1,5 +1,7 @@
 package model;
 
+import dao.BookDAO;
+
 public class BookDTO extends Book{
 	private String namePublisher;
 	private String nameCategory;
@@ -24,4 +26,6 @@ public class BookDTO extends Book{
 	public void setNameCategory(String name) {
 		this.nameCategory = name;
 	}
+	
+	
 }
