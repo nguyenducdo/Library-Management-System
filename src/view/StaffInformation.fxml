@@ -104,7 +104,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="lbID" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
+            <Label id="id" fx:id="lbID" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-font-style: italic;" text="12fefwf" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>

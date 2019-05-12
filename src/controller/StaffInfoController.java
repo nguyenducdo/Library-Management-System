@@ -113,7 +113,7 @@ public class StaffInfoController implements Initializable{
 		String username = tfUser.getText();
 		String password = pfPass.getText();
 		int gender = radioMale.isSelected()?1:0;
-		staffDAO.modifyStaffInfo(new Staff(idStaffLogin, name, address, tel, email, username, password, gender));
+		staffDAO.modifyStaffInfo(new Staff(idStaffLogin, name, gender, address, tel, email, username, password));
 		refresh();
 	}
 	

@@ -27,7 +27,7 @@ import model.Staff;
 
 public class HomeController	implements Initializable{
 	@FXML
-	private Button btnBookInformation, btnStaffInformation;
+	private Button btnBookInformation, btnStaffInformation, btnLogout, btnMember;
 	private Parent parentBookInfo, parentStaffInfo;
 	
 	private static int idStaffLogin = -1;
@@ -56,21 +56,30 @@ public class HomeController	implements Initializable{
 //		t.start();
 		long start = System.currentTimeMillis();
 		Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-		if(e.getSource() == btnBookInformation) {
-			stage.setScene(new Scene(parentBookInfo));
-		}
-		else if(e.getSource() == btnStaffInformation) {
-			FXMLLoader loader = new FXMLLoader();
-			try {
-				loader.setLocation(getClass().getResource("/view/StaffInformation.fxml"));
-				parentStaffInfo = loader.load();
-				StaffInfoController staffInfoController = loader.getController();
-				staffInfoController.setIdStaffLogin(idStaffLogin);
-				stage.setScene(new Scene(parentStaffInfo));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+		try {
+			if(e.getSource() == btnBookInformation) {
+				stage.setScene(new Scene(parentBookInfo));
 			}
+			else if(e.getSource() == btnStaffInformation) {
+				FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("/view/StaffInformation.fxml"));
+					parentStaffInfo = loader.load();
+					StaffInfoController staffInfoController = loader.getController();
+					staffInfoController.setIdStaffLogin(idStaffLogin);
+					stage.setScene(new Scene(parentStaffInfo));
+				
+			}else if(e.getSource() == btnLogout) {
+					Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+					stage.setScene(new Scene(root));
+				
+				
+			}else if(e.getSource() == btnMember) {
+				Parent root = FXMLLoader.load(getClass().getResource("/view/MemberInformation.fxml"));
+				stage.setScene(new Scene(root));
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 //		t.interrupt();
 		long end = System.currentTimeMillis();

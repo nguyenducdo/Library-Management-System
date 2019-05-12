@@ -42,7 +42,7 @@
       </Label>
       <HBox alignment="CENTER_RIGHT" layoutX="510.0" layoutY="188.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #ffff; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 3px 0px;">
          <children>
-            <TextField fx:id="tfUsername" promptText="username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+            <TextField fx:id="tfUsername" onAction="#login" promptText="username" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
@@ -59,7 +59,7 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" layoutX="510.0" layoutY="278.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #ffff; -fx-border-color: #a2a2a2; -fx-border-width: 0px 0px 3px 0px;">
          <children>
-            <PasswordField fx:id="pfPass" promptText="password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+            <PasswordField fx:id="pfPass" onAction="#login" promptText="password" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>

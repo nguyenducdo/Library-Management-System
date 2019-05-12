@@ -29,19 +29,19 @@
                   <FontAwesomeIconView fill="#2d75e8" glyphName="LEANPUB" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btnStudents" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.columnIndex="1">
+            <Button fx:id="btnStudents" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Quan ly muon tra" GridPane.columnIndex="1">
                <graphic>
-                  <FontAwesomeIconView fill="#2d75e8" glyphName="GROUP" size="60" />
+                  <FontAwesomeIconView fill="#2d75e8" glyphName="CREDIT_CARD" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btn_Timetable" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.columnIndex="2">
+            <Button fx:id="btn_Timetable" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Thong ke" GridPane.columnIndex="2">
                <graphic>
-                  <FontAwesomeIconView fill="#2d75e8" glyphName="CALENDAR_CHECK_ALT" size="60" />
+                  <FontAwesomeIconView fill="#2d75e8" glyphName="BAR_CHART" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btnSettings" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btnLogout" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Dang xuat" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <graphic>
-                  <FontAwesomeIconView fill="#2d75e8" glyphName="SLIDERS" size="60" />
+                  <FontAwesomeIconView fill="#2d75e8" glyphName="POWER_OFF" size="60" />
                </graphic>
             </Button>
             <Button fx:id="btnStaffInformation" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Staff Information" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -52,9 +52,9 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnClasses" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Text" GridPane.rowIndex="1">
+            <Button fx:id="btnMember" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Doc gia" GridPane.rowIndex="1">
                <graphic>
-                  <FontAwesomeIconView fill="#2d75e8" glyphName="INDENT" size="60" />
+                  <FontAwesomeIconView fill="#2d75e8" glyphName="USERS" size="60" />
                </graphic>
             </Button>
          </children>

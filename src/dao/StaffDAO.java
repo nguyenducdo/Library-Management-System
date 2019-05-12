@@ -33,7 +33,7 @@ public class StaffDAO {
 				String username = rs.getString("username");
 				String password = rs.getString("password");
 				int gender = rs.getInt("gender");
-				staff = new Staff(id, name, address, tel, email, username, password, gender);
+				staff = new Staff(id, name,gender, address, tel, email, username, password);
 			}else {
 			}
 		} catch (SQLException e) {
@@ -62,7 +62,7 @@ public class StaffDAO {
 				String username = rs.getString("username");
 				String password = rs.getString("password");
 				int gender = rs.getInt("gender");
-				staff = new Staff(id, name, address, tel, email, username, password, gender);
+				staff = new Staff(id, name, gender, address, tel, email, username, password);
 			}else {
 			}
 		} catch (SQLException e) {
