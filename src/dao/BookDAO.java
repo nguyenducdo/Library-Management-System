@@ -26,7 +26,7 @@ public class BookDAO{
 			rs = ps.executeQuery();
 			listBook = new ArrayList<>();
 			String id_book,id_isbn,name,author;
-			int id_category,id_publisher,quantity;
+			int id_category,id_publisher,quantity, remain;
 			Date publishing_year;
 			while(rs.next()) {
 				id_book = rs.getString("id_book");
@@ -36,8 +36,10 @@ public class BookDAO{
 				id_category = rs.getInt("id_category");
 				id_publisher = rs.getInt("id_publisher");
 				quantity = rs.getInt("quantity");
+				remain = rs.getInt("remain");
 				publishing_year = rs.getDate("publishing_year");
-				listBook.add(new Book(id_book,id_isbn,name,author,id_category,id_publisher,publishing_year,quantity));
+				
+				listBook.add(new Book(id_book,id_isbn,name,author,id_category,id_publisher,publishing_year,quantity,remain));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -58,7 +60,7 @@ public class BookDAO{
 			rs = ps.executeQuery();
 			listBookDTO = new ArrayList<>();
 			String id_book,id_isbn,name,author,namePublisher,nameCategory;
-			int id_category,id_publisher,quantity;
+			int id_category,id_publisher,quantity,remain;
 			Date publishing_year;
 			while(rs.next()) {
 				id_book = rs.getString("id_book");
@@ -71,7 +73,8 @@ public class BookDAO{
 				nameCategory = rs.getString("category.name");
 				quantity = rs.getInt("quantity");
 				publishing_year = rs.getDate("publishing_year");
-				listBookDTO.add(new BookDTO(new Book(id_book,id_isbn,name,author,id_category,id_publisher,publishing_year,quantity), namePublisher,nameCategory));
+				remain = rs.getInt("remain");
+				listBookDTO.add(new BookDTO(new Book(id_book,id_isbn,name,author,id_category,id_publisher,publishing_year,quantity,remain), namePublisher,nameCategory));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -115,7 +118,8 @@ public class BookDAO{
 				nameCategory = rs.getString("category.name");
 				quantity = rs.getInt("quantity");
 				publishing_year = rs.getDate("publishing_year");
-				listBookDTO.add(new BookDTO(new Book(id_book,id_isbn,name,author,id_category,id_publisher,publishing_year,quantity), namePublisher,nameCategory));
+				int remain = rs.getInt("remain");
+				listBookDTO.add(new BookDTO(new Book(id_book,id_isbn,name,author,id_category,id_publisher,publishing_year,quantity,remain), namePublisher,nameCategory));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

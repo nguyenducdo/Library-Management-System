@@ -146,7 +146,7 @@ public class BookInfoController implements Initializable{
 
 		quantityCol.setCellValueFactory(new PropertyValueFactory<BookDTO,Integer>("quantity"));
 		
-		remainingCol.setCellValueFactory(new PropertyValueFactory<BookDTO, Integer>("remaining"));
+		remainingCol.setCellValueFactory(new PropertyValueFactory<BookDTO, Integer>("remain"));
 
 		
 		listBook = FXCollections.observableArrayList(bookDAO.getAllBookDTO());
@@ -350,9 +350,13 @@ public class BookInfoController implements Initializable{
 	}
 	
 	public void deleteBook(ActionEvent evt) {
-		if(evt.getSource() == itemDelete) {
-			BookDTO book = tbvBookInfo.getSelectionModel().getSelectedItem();
-			
+		BookDTO book = tbvBookInfo.getSelectionModel().getSelectedItem();
+		if(book == null) {
+			Alert alert = new Alert(AlertType.WARNING, "Please select a book", ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+			return;
+		}
 			Alert alert = new Alert(AlertType.INFORMATION, "delete " +book.toString(), ButtonType.YES, ButtonType.NO);
 			alert.setHeaderText(null);
 			Optional<ButtonType> option = alert.showAndWait();
@@ -360,10 +364,16 @@ public class BookInfoController implements Initializable{
 				bookDAO.deleteBook(book);
 				refresh(tabBooks);
 			}
-		}
 	}
 	
 	public void modifyBook(ActionEvent evt) {
+		BookDTO book = tbvBookInfo.getSelectionModel().getSelectedItem();
+		if(book == null) {
+			Alert alert = new Alert(AlertType.WARNING, "Please select a book", ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+			return;
+		}
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/view/StageUpdateBook/StageModifyBookInfo.fxml"));
 		try {
@@ -371,7 +381,7 @@ public class BookInfoController implements Initializable{
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root));
 			ModifyBookController controller = loader.getController();
-			BookDTO book = tbvBookInfo.getSelectionModel().getSelectedItem();
+			
 			controller.setBook(book);
 			stage.showAndWait();
 			refresh(tabBooks);

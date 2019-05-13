@@ -27,7 +27,7 @@ import model.Staff;
 
 public class HomeController	implements Initializable{
 	@FXML
-	private Button btnBookInformation, btnStaffInformation, btnLogout, btnMember;
+	private Button btnBookInformation, btnStaffInformation, btnLogout, btnMember,btnBorrow;
 	private Parent parentBookInfo, parentStaffInfo;
 	
 	private static int idStaffLogin = -1;
@@ -65,10 +65,11 @@ public class HomeController	implements Initializable{
 			}else if(e.getSource() == btnLogout) {
 					Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
 					stage.setScene(new Scene(root));
-				
-				
 			}else if(e.getSource() == btnMember) {
 				Parent root = FXMLLoader.load(getClass().getResource("/view/MemberInformation.fxml"));
+				stage.setScene(new Scene(root));
+			}else if(e.getSource() == btnBorrow) {
+				Parent root = FXMLLoader.load(getClass().getResource("/view/BorrowBooksManagement.fxml"));
 				stage.setScene(new Scene(root));
 			}
 		} catch (IOException e1) {

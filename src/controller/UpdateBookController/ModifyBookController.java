@@ -118,7 +118,7 @@ public class ModifyBookController implements Initializable{
 			}
 		}
 		
-		Book book = new Book(modifiedBook.getIdBook(), id_isbn, name, author, id_category, id_publisher, publishing_year, quantity);
+		Book book = new Book(modifiedBook.getIdBook(), id_isbn, name, author, id_category, id_publisher, publishing_year, quantity,modifiedBook.getRemain());
 		
 		
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Do you want to modify?", ButtonType.YES,ButtonType.NO);

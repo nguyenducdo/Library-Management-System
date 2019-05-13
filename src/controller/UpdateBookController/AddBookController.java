@@ -108,7 +108,7 @@ public class AddBookController implements Initializable{
 			}
 		}
 		
-		Book newBook = new Book(null, id_isbn, name, author, id_category, id_publisher, publishing_year, quantity);
+		Book newBook = new Book(null, id_isbn, name, author, id_category, id_publisher, publishing_year, quantity,quantity);
 		bookDAO.addBook(newBook);
 		
 		Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();

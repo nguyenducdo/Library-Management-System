@@ -84,14 +84,18 @@ public class MemberInfoController implements Initializable{
 	@FXML
 	private MenuItem itemBorrowInfo,itemModifyUser,itemDeleteUser,itemAddUser;
 	
+//	
+//	@FXML
+//	private TableView<> tbvBorrowingInfo;
+//	
+//	private ObservableList<> listBorrowingInfo;
+	
 	@FXML
 	private RadioButton radioSearchByID, radioSearchByName;
 	@FXML
 	private TextField tfSearchTab2;
-	@FXML
-	private TableView<> tbvQuanLy;
 	
-	private ObservableList<> listQuanLy;
+
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -206,7 +210,7 @@ public class MemberInfoController implements Initializable{
 			SelectionModel<String> model = cbSearch.getSelectionModel();
 			model.select(null);
 		}else if(tab == tabQuanLy) {
-			r
+//			r
 		}
 	}
 	
@@ -261,6 +265,7 @@ public class MemberInfoController implements Initializable{
 		}
 		Alert alert = new Alert(AlertType.WARNING,null,ButtonType.YES, ButtonType.NO);
 		alert.setContentText("Delete member: "+member.getName() + " - ID: " + member.getId() +" ?");
+		alert.setHeaderText(null);
 		Optional<ButtonType> optional = alert.showAndWait();
 		if(optional.get() == ButtonType.NO) return;
 		memberDAO.delete(member);

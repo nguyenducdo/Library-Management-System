@@ -29,17 +29,17 @@
                   <FontAwesomeIconView fill="#2d75e8" glyphName="LEANPUB" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btnStudents" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Quan ly muon tra" GridPane.columnIndex="1">
+            <Button fx:id="btnBorrow" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Borrowing &amp; Return" GridPane.columnIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="CREDIT_CARD" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btn_Timetable" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Thong ke" GridPane.columnIndex="2">
+            <Button fx:id="btn_Timetable" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Statistics" GridPane.columnIndex="2">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="BAR_CHART" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btnLogout" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Dang xuat" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btnLogout" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Logout" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="POWER_OFF" size="60" />
                </graphic>
@@ -52,7 +52,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnMember" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Doc gia" GridPane.rowIndex="1">
+            <Button fx:id="btnMember" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Members" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="USERS" size="60" />
                </graphic>

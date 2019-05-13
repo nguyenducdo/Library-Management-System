@@ -37,3 +37,47 @@ insert into return_book values ('BB000001','B00772','2','2019-5-18');
 select * from detail_bill
 select * from borrow_book
 select * from return_book
+
+SELECT * FROM book WHERE id_book = 'B00772'
+SELECT * FROM detail_bill WHERE id_book = 'B00772' AND state = '0'
+SELECT * FROM book WHERE id_book = 'B00767'
+
+DELIMITER $$
+CREATE TRIGGER tg_detail_bill_insert
+AFTER INSERT ON detail_bill
+FOR EACH ROW
+BEGIN
+  update book set remain = remain - 1 where book.id_book = new.id_book;
+END$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER tg_return_book_insert
+AFTER INSERT ON return_book
+FOR EACH ROW
+BEGIN
+  update book set remain = remain + 1 where book.id_book = new.id_book;
+  if(new.real_return_date <= (select return_date from detail_bill where id_bill = new.id_bill and id_book = new.id_book))
+	then
+		update detail_bill set state = 1 where id_bill = new.id_bill and id_book = new.id_book;
+   else 
+		update detail_bill set state = 2 where id_bill = new.id_bill and id_book = new.id_book;
+  end if;
+END$$
+DELIMITER ;
+
+alter table lost_book add foreign key (id_bill) references detail_bill(id_bill);
+alter table lost_book add foreign key (id_book) references detail_bill(id_book);
+alter table lost_book add foreign key (id_staff) references staff(id);
+
+DELIMITER $$
+CREATE TRIGGER tg_lost_book_insert
+AFTER INSERT ON lost_book
+FOR EACH ROW
+BEGIN
+	update book set quantity = quantity - 1 where id_book = new.id_book;
+    update detail_bill set state = 3 where id_bill = new.id_bill and id_book = new.id_book;
+END$$
+DELIMITER ;
+
+
+update book set remain = 50

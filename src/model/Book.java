@@ -11,6 +11,7 @@ public class Book {
 	private int idPublisher;
 	private Date publishingYear;
 	private int quantity;
+	private int remain;
 
 	public Book() {
 
@@ -25,10 +26,11 @@ public class Book {
 		this.idPublisher = book.getIdPublisher();
 		this.publishingYear = book.getPublishingYear();
 		this.quantity = book.getQuantity();
+		this.remain = book.getRemain();
 	}
 
 	public Book(String idBook, String idIsbn, String name, String author, int idCategory, int idPublisher,
-			Date publishingYear, int quantity) {
+			Date publishingYear, int quantity, int remain) {
 		this.idBook = idBook;
 		this.idIsbn = idIsbn;
 		this.name = name;
@@ -37,6 +39,7 @@ public class Book {
 		this.idPublisher = idPublisher;
 		this.publishingYear = publishingYear;
 		this.quantity = quantity;
+		this.remain = remain;
 	}
 
 	public String getIdBook() {
@@ -102,12 +105,23 @@ public class Book {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	
 
 	@Override
 	public String toString() {
 		return "Book [idBook=" + idBook + ", idIsbn=" + idIsbn + ", name=" + name + ", author=" + author
 				+ ", idCategory=" + idCategory + ", idPublisher=" + idPublisher + ", publishingYear=" + publishingYear
 				+ ", quantity=" + quantity + "]";
+	}
+
+	public int getRemain() {
+		return remain;
+	}
+
+
+	public void setRemain(int remain) {
+		this.remain = remain;
 	}
 
 }
