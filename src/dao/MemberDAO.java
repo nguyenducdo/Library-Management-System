@@ -11,6 +11,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 import model.Book;
 import model.BookDTO;
+import model.BorrowingInfo;
 import model.Member;
 
 public class MemberDAO {
@@ -133,4 +134,16 @@ public class MemberDAO {
 			DBConnection.close(rs, ps, cnn);
 		}
 	}
+	
 }
+
+
+//String condition = "";
+//if(column!=null && key != null) condition = "and m."+column+" LIKE '%"+key+"%'";
+//
+//List<BorrowingInfo> listBorrow = null;
+//try {
+//	String query = "select b.id_bill, d.id_book, bk.name, b.id_member, m.name, id_staff, borrowing_date, return_date, name_state " + 
+//			"from borrow_book b, detail_bill d, member m, book bk, state s " + 
+//			"where b.id_member = m.id_member and b.id_bill = d.id_bill " + 
+//			"and d.id_book = bk.id_book and d.state = s.id_state " + condition;

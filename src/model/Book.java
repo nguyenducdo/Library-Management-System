@@ -123,5 +123,9 @@ public class Book {
 	public void setRemain(int remain) {
 		this.remain = remain;
 	}
-
+	
+	public Book getBook() {
+		return this;
+	}
+	
 }

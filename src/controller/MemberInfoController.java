@@ -2,10 +2,13 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import controller.UpdateMemberController.ModifyMemberController;
+import dao.BorrowDAO;
 import dao.MemberDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,17 +39,21 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import model.BorrowingInfo;
 import model.Member;
 
 public class MemberInfoController implements Initializable{
 	private MemberDAO memberDAO = new MemberDAO();
+	private BorrowDAO borrowDAO = new BorrowDAO();
 	@FXML
-	private Button btnMember,btnQuanLy;
+	private Button btnMember,btnSearchBorrowingInfo;
 	@FXML
-	private Tab tabMembers,tabQuanLy;
+	private Tab tabMembers,tabSearchBorrowingInfo;
 	@FXML
 	private TabPane tabPane;
 	
@@ -84,11 +91,21 @@ public class MemberInfoController implements Initializable{
 	@FXML
 	private MenuItem itemBorrowInfo,itemModifyUser,itemDeleteUser,itemAddUser;
 	
-//	
-//	@FXML
-//	private TableView<> tbvBorrowingInfo;
-//	
-//	private ObservableList<> listBorrowingInfo;
+	
+	@FXML
+	private TableView<BorrowingInfo> tbvBorrowingInfo;
+	private ObservableList<BorrowingInfo> listBorrowingInfo;
+	
+	@FXML
+	private TableColumn<BorrowingInfo, String> idSearchColTab2;
+	@FXML
+	private TableColumn<BorrowingInfo, String> nameSearchColTab2;
+	@FXML
+	private TableColumn<BorrowingInfo, Integer> idStaffColTab2;
+	@FXML
+	private TableColumn<BorrowingInfo, String> idBillColTab2;
+	@FXML
+	private TableColumn<BorrowingInfo, Date> dateBorrowColTab2;
 	
 	@FXML
 	private RadioButton radioSearchByID, radioSearchByName;
@@ -101,6 +118,7 @@ public class MemberInfoController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		initTbvMemberInfo();
+		initTbvBorrowingInfo();
 		initCbSearch();
 	} 
 	
@@ -140,6 +158,39 @@ public class MemberInfoController implements Initializable{
 		});
 	}
 	
+	private void initTbvBorrowingInfo() {
+		idSearchColTab2.setCellValueFactory(new PropertyValueFactory<BorrowingInfo, String>("id_member"));
+		nameSearchColTab2.setCellValueFactory(new PropertyValueFactory<BorrowingInfo, String>("name_member"));
+		idStaffColTab2.setCellValueFactory(new PropertyValueFactory<BorrowingInfo, Integer>("id_staff"));
+		idBillColTab2.setCellValueFactory(new PropertyValueFactory<BorrowingInfo, String>("id_bill"));
+		dateBorrowColTab2.setCellValueFactory(new PropertyValueFactory<BorrowingInfo, Date>("borrowing_date"));
+		
+		listBorrowingInfo = FXCollections.observableArrayList(borrowDAO.searchBorrowInfo(null, null));
+		tbvBorrowingInfo.setItems(listBorrowingInfo);
+		tbvBorrowingInfo.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+		    public void handle(MouseEvent mouseEvent) {
+		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+		            if(mouseEvent.getClickCount() == 2){
+		            	FXMLLoader loader = new FXMLLoader();
+		            	loader.setLocation(getClass().getResource("/view/StageBorrowInfo/StageBorrowInfo.fxml"));
+		            	try {
+							Parent root = loader.load();
+							Stage stage = new Stage();
+							stage.setScene(new Scene(root));
+							stage.initModality(Modality.APPLICATION_MODAL);
+							stage.showAndWait();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		            	
+		            }
+		        }
+		    }
+		});
+	}
+	
 	public void searchMemberInfo(ActionEvent evt) {
 		String key = tfSearchMember.getText();
 		if(key.equals("")) {
@@ -174,8 +225,8 @@ public class MemberInfoController implements Initializable{
 		SelectionModel<Tab> model = tabPane.getSelectionModel();
 		if(evt.getSource() == btnMember) {
 			model.select(tabMembers);
-		}else if(evt.getSource() == btnQuanLy) {
-			model.select(tabQuanLy);
+		}else if(evt.getSource() == btnSearchBorrowingInfo) {
+			model.select(tabSearchBorrowingInfo);
 		}
 	}
 	
@@ -209,8 +260,9 @@ public class MemberInfoController implements Initializable{
 			listMembers.addAll(memberDAO.getAllMember());
 			SelectionModel<String> model = cbSearch.getSelectionModel();
 			model.select(null);
-		}else if(tab == tabQuanLy) {
-//			r
+		}else if(tab == tabSearchBorrowingInfo) {
+			listBorrowingInfo.clear();
+			listBorrowingInfo.addAll(borrowDAO.searchBorrowInfo(null, null));
 		}
 	}
 	
@@ -271,4 +323,18 @@ public class MemberInfoController implements Initializable{
 		memberDAO.delete(member);
 		refresh(tabMembers);
 	}
+	
+	public void searchTab2(ActionEvent evt) {
+		if(tfSearchTab2.getText().isEmpty()) {
+			refresh(tabSearchBorrowingInfo);
+			return;
+		}
+		listBorrowingInfo.clear();
+		if(radioSearchByID.isSelected()) {
+			listBorrowingInfo.addAll(borrowDAO.searchBorrowInfo("id_member", tfSearchTab2.getText()));
+		}else {
+			listBorrowingInfo.addAll(borrowDAO.searchBorrowInfo("name", tfSearchTab2.getText()));
+		}
+	}
+	
 }

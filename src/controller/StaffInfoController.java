@@ -121,8 +121,6 @@ public class StaffInfoController implements Initializable{
 		turnBack(evt);
 	}
 	
-	@FXML
-	private Button btnBack;
 	public void turnBack(ActionEvent evt) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));

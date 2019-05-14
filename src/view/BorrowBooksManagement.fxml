@@ -140,7 +140,7 @@
    <bottom>
       <HBox prefHeight="25.0" prefWidth="800.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" styleClass="btnBack" stylesheets="@BorrowManagementDecorate/BorrowStyle.css" text="Turn Back">
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#turnBack" prefHeight="26.0" prefWidth="103.0" styleClass="btnBack" stylesheets="@BorrowManagementDecorate/BorrowStyle.css" text="Turn Back">
                <graphic>
                   <FontAwesomeIconView fill="#ee0606" glyphName="REPLY" size="16" wrappingWidth="21.0" />
                </graphic>
@@ -203,7 +203,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <TextField fx:id="tfSearchBookTab2" layoutX="46.0" layoutY="81.0" prefHeight="30.0" prefWidth="231.0" promptText="Enter Book's ID ..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <TextField fx:id="tfSearchBookTab2" layoutX="46.0" layoutY="81.0" onAction="#searchBook" prefHeight="30.0" prefWidth="231.0" promptText="Enter Book's ID ..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -236,7 +236,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnSearchBookTab2" layoutX="89.0" layoutY="126.0" mnemonicParsing="false" text="Search">
+                              <Button fx:id="btnSearchBookTab2" layoutX="89.0" layoutY="126.0" mnemonicParsing="false" onAction="#searchBook" text="Search">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="SEARCH" size="14" />
                                  </graphic>

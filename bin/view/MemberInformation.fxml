@@ -90,7 +90,8 @@
                                  <columns>
                                     <TableColumn fx:id="idSearchColTab2" prefWidth="75.0" text="ID" />
                                     <TableColumn fx:id="nameSearchColTab2" prefWidth="75.0" text="Name" />
-                                    <TableColumn fx:id="idBorrowColTab2" prefWidth="75.0" text="ID Bill" />
+                                    <TableColumn fx:id="idStaffColTab2" prefWidth="75.0" text="ID Staff" />
+                                    <TableColumn fx:id="idBillColTab2" prefWidth="75.0" text="ID Bill" />
                                     <TableColumn fx:id="dateBorrowColTab2" prefWidth="75.0" text="Borrowing Date" />
                                  </columns>
                               </TableView>
@@ -103,8 +104,8 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="tfSearchTab2" layoutX="1.0" layoutY="169.0" onKeyReleased="#keyEvtHandle" prefHeight="33.0" prefWidth="257.0" promptText="Search..." />
-                                    <Button fx:id="btnSearchTab2" layoutX="90.0" layoutY="214.0" mnemonicParsing="false" text="Search">
+                                    <TextField fx:id="tfSearchTab2" layoutX="1.0" layoutY="169.0" onAction="#searchTab2" onKeyReleased="#keyEvtHandle" prefHeight="33.0" prefWidth="257.0" promptText="Search..." />
+                                    <Button fx:id="btnSearchTab2" layoutX="90.0" layoutY="214.0" mnemonicParsing="false" onAction="#searchTab2" text="Search">
                                        <graphic>
                                           <FontAwesomeIconView glyphName="SEARCH" size="14" />
                                        </graphic>

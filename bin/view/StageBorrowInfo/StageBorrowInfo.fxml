@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BorrowInfoController.BorrowInfoController">
+   <center>
+      <TableView fx:id="tbvBorrow" prefHeight="398.0" prefWidth="589.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="idBillCol" prefWidth="75.0" text="ID Bill" />
+          <TableColumn fx:id="idBookCol" prefWidth="75.0" text="ID Book" />
+            <TableColumn fx:id="nameBookCol" prefWidth="75.0" text="Book's name" />
+            <TableColumn fx:id="borrowingDateCol" prefWidth="82.0" text="Borrowing Date" />
+            <TableColumn fx:id="returnDateCol" prefWidth="75.0" text="Return Date" />
+            <TableColumn fx:id="nameStateCol" prefWidth="75.0" text="State" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
+</BorderPane>

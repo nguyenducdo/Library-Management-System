@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -14,9 +15,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -26,6 +32,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Book;
 import model.BookDTO;
@@ -62,6 +71,7 @@ public class BorrowController implements Initializable{
 	List<Book> list = new ArrayList<Book>();
 	
 	private void initTbvBookInfoTab2() {
+		
 		idBookColTab2.setCellValueFactory(new PropertyValueFactory<Book, String>("idBook"));
 		nameColTab2.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
 		authorColTab2.setCellValueFactory(new PropertyValueFactory<Book, String>("author"));
@@ -79,12 +89,13 @@ public class BorrowController implements Initializable{
 	                   public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
 	                           Boolean newValue) {
 							if(newValue == false) {
-								list.remove(tbvBookInfoTab2.getSelectionModel().getSelectedItem());
+								list.remove(book);
 							}else {
-								list.add(tbvBookInfoTab2.getSelectionModel().getSelectedItem());
+								list.add(book);
 							}
 	                   }
 				});
+				
 				return booleanProp;
 			}
 		});
@@ -98,12 +109,34 @@ public class BorrowController implements Initializable{
 	           }
 	       });
 		
-		Book book1 = new Book("B1000", "1-2-3-4", "abc", "vreger", 123, 1234, new Date(1999999999),15, 10);
-		Book book2 = new Book("B1001", "1-2-3-4", "abc", "vreger", 123, 1234, new Date(1999999999),15, 10);
-		Book book3 = new Book("B1002", "1-2-3-4", "abc", "vreger", 123, 1234, new Date(1999999999),15, 10);
-		
-		listBookInfo = FXCollections.observableArrayList(book1,book2,book3);
+		listBookInfo = FXCollections.observableArrayList(bookDAO.getAllBook());
 		tbvBookInfoTab2.setItems(listBookInfo);
+		tbvBookInfoTab2.setEditable(true);
+	}
+	
+	public void searchBook(ActionEvent evt) {
+		String str = tfSearchBookTab2.getText();
+		if(str.isEmpty()) return;
+		int index = 0;
+		for (Book x : listBookInfo) {
+			if(x.getIdBook().contains(str)) {
+				tbvBookInfoTab2.getSelectionModel().select(index);
+				tbvBookInfoTab2.scrollTo(index);
+				return;
+			}
+			index++;
+		}
+	}
+
+	public void turnBack(ActionEvent evt) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+			Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
+			stage.setScene(new Scene(root));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
