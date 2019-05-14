@@ -4,10 +4,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BorrowInfoController.BorrowInfoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DetailController.DetailBillController">
    <center>
-      <TableView fx:id="tbvBorrow" prefHeight="398.0" prefWidth="589.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tbvDetail" prefHeight="398.0" prefWidth="589.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="idBillCol" prefWidth="75.0" text="ID Bill" />
           <TableColumn fx:id="idBookCol" prefWidth="75.0" text="ID Book" />

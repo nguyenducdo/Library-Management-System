@@ -48,7 +48,7 @@
                                  <contextMenu>
                                     <ContextMenu fx:id="contextMember">
                                       <items>
-                                        <MenuItem fx:id="itemBorrowInfo" mnemonicParsing="false" text="Xem thong tin muon tra" />
+                                        <MenuItem fx:id="itemBorrowInfo" mnemonicParsing="false" onAction="#autoSearch" text="Borrowing Info" />
                                           <MenuItem fx:id="itemModifyUser" mnemonicParsing="false" onAction="#modify" text="Modify Information" />
                                           <MenuItem fx:id="itemDeleteUser" mnemonicParsing="false" onAction="#delete" text="Delete User" />
                                           <MenuItem fx:id="itemAddUser" mnemonicParsing="false" onAction="#add" text="Add New User" />

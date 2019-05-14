@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import controller.DetailController.DetailBillController;
 import controller.UpdateMemberController.ModifyMemberController;
 import dao.BorrowDAO;
 import dao.MemberDAO;
@@ -172,10 +173,13 @@ public class MemberInfoController implements Initializable{
 		    public void handle(MouseEvent mouseEvent) {
 		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
 		            if(mouseEvent.getClickCount() == 2){
-		            	FXMLLoader loader = new FXMLLoader();
-		            	loader.setLocation(getClass().getResource("/view/StageBorrowInfo/StageBorrowInfo.fxml"));
 		            	try {
-							Parent root = loader.load();
+//							Parent root = FXMLLoader.load(getClass().getResource("/view/StageBorrowInfo/StageBorrowInfo.fxml"));
+		            		FXMLLoader loader = new FXMLLoader();
+			            	loader.setLocation(getClass().getResource("/view/StageBorrowInfo/StageBorrowInfo.fxml"));
+		            		Parent root = loader.load();
+							DetailBillController controller = loader.getController();
+							controller.setId_bill(tbvBorrowingInfo.getSelectionModel().getSelectedItem().getId_bill());
 							Stage stage = new Stage();
 							stage.setScene(new Scene(root));
 							stage.initModality(Modality.APPLICATION_MODAL);
@@ -225,7 +229,7 @@ public class MemberInfoController implements Initializable{
 		SelectionModel<Tab> model = tabPane.getSelectionModel();
 		if(evt.getSource() == btnMember) {
 			model.select(tabMembers);
-		}else if(evt.getSource() == btnSearchBorrowingInfo) {
+		}else if(evt.getSource() == btnSearchBorrowingInfo || evt.getSource() == itemBorrowInfo) {
 			model.select(tabSearchBorrowingInfo);
 		}
 	}
@@ -240,7 +244,9 @@ public class MemberInfoController implements Initializable{
 			if(evt.getSource() == tfSearchMember) {
 				if(tfSearchMember.getText().equals("")) refresh(tabMembers);
 			}
-			
+			else if(evt.getSource() == tfSearchTab2) {
+				if(tfSearchTab2.getText().isEmpty()) refresh(tabSearchBorrowingInfo);
+			}
 		}
 	}
 	public void turnBack(ActionEvent evt) {
@@ -335,6 +341,13 @@ public class MemberInfoController implements Initializable{
 		}else {
 			listBorrowingInfo.addAll(borrowDAO.searchBorrowInfo("name", tfSearchTab2.getText()));
 		}
+	}
+	
+	public void autoSearch(ActionEvent evt) {
+		radioSearchByID.setSelected(true);
+		tfSearchTab2.setText(tbvMemberInfo.getSelectionModel().getSelectedItem().getId());
+		showTab(evt);
+		searchTab2(evt);
 	}
 	
 }
