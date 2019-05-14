@@ -128,7 +128,6 @@
                         <FontAwesomeIconView fill="#d98d1a" glyphName="LIST_ALT" size="15" wrappingWidth="20.14285659790039" />
                      </graphic>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="button" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
@@ -149,7 +148,7 @@
       </HBox>
    </bottom>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="List Borrow Book">
                <content>
@@ -166,7 +165,7 @@
                   </TableView>
                </content>
           </Tab>
-          <Tab text="Create Bill">
+          <Tab fx:id="tabCreateBill" text="Create Bill">
                <content>
                   <BorderPane prefHeight="404.0" prefWidth="735.0">
                      <center>
@@ -192,7 +191,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnCreateBill" layoutX="79.0" layoutY="398.0" mnemonicParsing="false" styleClass="btnCreate" stylesheets="@BorrowManagementDecorate/BorrowStyle.css" text="Create Bill" textFill="WHITE">
+                              <Button fx:id="btnCreateBill" layoutX="79.0" layoutY="398.0" mnemonicParsing="false" onAction="#createBill" styleClass="btnCreate" stylesheets="@BorrowManagementDecorate/BorrowStyle.css" text="Create Bill" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -218,7 +217,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="btnCheckIDMemberTab2" layoutX="221.0" layoutY="235.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="29.0" AnchorPane.rightAnchor="0.0">
+                              <Button fx:id="btnCheckIDMemberTab2" layoutX="221.0" layoutY="235.0" mnemonicParsing="false" onAction="#checkIDMember" prefHeight="30.0" prefWidth="29.0" AnchorPane.rightAnchor="0.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -228,12 +227,12 @@
                               </Button>
                               <Label fx:id="lbNameTab2" layoutX="16.0" layoutY="287.0">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="System Italic" size="14.0" />
                                  </font>
                               </Label>
                               <Label fx:id="lbEmailTab2" layoutX="16.0" layoutY="335.0">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="System Italic" size="14.0" />
                                  </font>
                               </Label>
                               <Button fx:id="btnSearchBookTab2" layoutX="89.0" layoutY="126.0" mnemonicParsing="false" onAction="#searchBook" text="Search">

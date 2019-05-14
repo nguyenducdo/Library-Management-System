@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import dao.BookDAO;
+import dao.MemberDAO;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,6 +26,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionModel;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,8 +42,15 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Book;
 import model.BookDTO;
+import model.Member;
 
 public class BorrowController implements Initializable{
+	@FXML
+	private TabPane tabPane;
+	
+	@FXML
+	private Tab tabCreateBill;
+	
 	@FXML
 	private TableView<Book> tbvBookInfoTab2;
 	
@@ -127,6 +138,15 @@ public class BorrowController implements Initializable{
 			index++;
 		}
 	}
+	
+	public void refresh(Tab tab) {
+		if(tab==tabCreateBill) {
+			listBookInfo.clear();
+			listBookInfo.addAll(bookDAO.getAllBook());
+			lbEmailTab2.setText("");
+			lbNameTab2.setText("");
+		}
+	}
 
 	public void turnBack(ActionEvent evt) {
 		try {
@@ -139,4 +159,19 @@ public class BorrowController implements Initializable{
 		}
 	}
 	
+	public boolean checkIDMember(ActionEvent evt) {
+		List<Member> list = new MemberDAO().searchBy("id_member", tfSearchIDMemberTab2.getText());
+		if(list.size()==0) {
+			lbNameTab2.setText("This member not exists");
+			return false;
+		}
+		Member mem = list.get(0);
+		lbNameTab2.setText("Name: " + mem.getName());
+		lbEmailTab2.setText("Email: "+ mem.getEmail());
+		return true;
+	}
+	
+	public void createBill(ActionEvent evt) {
+		
+	}
 }
