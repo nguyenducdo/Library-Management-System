@@ -180,14 +180,15 @@ public class BorrowDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<BookBill> listBookBills = null;
+		String condition = "";
+		if(idBill!=null) condition = "and borrow_book.id_bill = '"+idBill+"'";
 		try {
 			String query ="select * from book,borrow_book,detail_bill,member,state " + 
 					"where book.id_book = detail_bill.id_book " + 
 					"and borrow_book.id_bill = detail_bill.id_bill " + 
 					"and borrow_book.id_member = member.id_member " +
 					"and detail_bill.state = state.id_state "+
-					"and (state.id_state=0 or state.id_state=4) " +
-					"and borrow_book.id_bill = '"+idBill+"'";
+					"and (state.id_state=0 or state.id_state=4) " +condition;
 			System.out.println(query);
 			ps = (PreparedStatement) cnn.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -198,7 +199,7 @@ public class BorrowDAO {
 				String id_isbn = rs.getString("book.id_isbn");
 				String name_book = rs.getString("book.name");
 				String id_member = rs.getString("member.id_member");
-				String name_member = rs.getString("member.name_member");
+				String name_member = rs.getString("member.name");
 				int id_staff = rs.getInt("borrow_book.id_staff");
 				Date borrowing_date = rs.getDate("borrowing_date");
 				Date return_date = rs.getDate("return_date");

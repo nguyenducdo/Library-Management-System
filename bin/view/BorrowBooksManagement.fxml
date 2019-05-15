@@ -44,7 +44,7 @@
                   <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="24.0" prefWidth="175.0" text="List Borrow Book" GridPane.columnIndex="1" GridPane.columnSpan="2">
+                  <Button fx:id="btnListBorrowTab" alignment="BASELINE_LEFT" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTab" prefHeight="24.0" prefWidth="175.0" text="List Borrow Book" GridPane.columnIndex="1" GridPane.columnSpan="2">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
@@ -55,7 +55,7 @@
                         <FontAwesomeIconView fill="#1fa841" glyphName="LIST_ALT" size="15" wrappingWidth="20.14285659790039" />
                      </graphic>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Create Bill" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                  <Button fx:id="btnCreateBillTab" alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTab" text="Create Bill" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
@@ -63,7 +63,7 @@
                         <FontAwesomeIconView fill="#1648b5" glyphName="PLUS_SQUARE_ALT" size="15" wrappingWidth="20.14285659790039" />
                      </graphic>
                   </Button>
-                  <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Return Book" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                  <Button fx:id="btnReturnBookTab" alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTab" text="Return Book" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
@@ -76,7 +76,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Button contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.rowSpan="3">
+                  <Button fx:id="btnBigbtn" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showTab" GridPane.rowSpan="3">
                      <graphic>
                         <FontAwesomeIconView fill="#007399" glyphName="CREDIT_CARD" size="45" />
                      </graphic>
@@ -151,14 +151,17 @@
    <center>
       <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="List Borrow Book">
+          <Tab fx:id="tabListBorrow" text="List Borrow Book">
                <content>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="tbvBookBill" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="ID" />
-                      <TableColumn prefWidth="75.0" text="ID Member" />
-                        <TableColumn prefWidth="75.0" text="ID Staff" />
-                        <TableColumn prefWidth="112.0" text="Borrowing Date" />
+                        <TableColumn fx:id="idBillColTab1" prefWidth="75.0" text="ID Bill" />
+                      <TableColumn fx:id="idBookColTab1" prefWidth="75.0" text="ID Book" />
+                      <TableColumn fx:id="nameBookColTab1" prefWidth="75.0" text="Book" />
+                        <TableColumn fx:id="idMemberColTab1" prefWidth="75.0" text="ID Member" />
+                        <TableColumn fx:id="nameMemberColTab1" prefWidth="112.0" text="Member" />
+                        <TableColumn fx:id="dateColTab1" prefWidth="75.0" text="Borrowing Date" />
+                        <TableColumn fx:id="stateColTab1" prefWidth="75.0" text="State" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

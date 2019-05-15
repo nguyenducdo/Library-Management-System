@@ -51,6 +51,7 @@ import model.Book;
 import model.BorrowingInfo;
 import model.DetailBill;
 import model.Member;
+import model.ClassDTO.BookBill;
 import model.ClassDTO.BookDTO;
 
 public class BorrowController implements Initializable{
@@ -58,7 +59,19 @@ public class BorrowController implements Initializable{
 	private TabPane tabPane;
 	
 	@FXML
-	private Tab tabCreateBill, tabReturnBook;
+	private Tab tabCreateBill, tabReturnBook,tabListBorrow;
+	@FXML
+	private Button btnCreateBillTab, btnListBorrowTab, btnReturnBookTab,btnBigbtn;
+	
+	
+	@FXML
+	private TableView<BookBill> tbvBookBill;
+	private ObservableList<BookBill> listBookBill;
+	@FXML
+	private TableColumn<BookBill, String> idBillColTab1,idBookColTab1,nameBookColTab1,idMemberColTab1,nameMemberColTab1,stateColTab1;
+	@FXML
+	private TableColumn<BookBill, Date> dateColTab1;
+	
 	
 	@FXML
 	private TableView<Book> tbvBookInfoTab2;
@@ -79,24 +92,19 @@ public class BorrowController implements Initializable{
 	private Button btnCreateBill,btnSearchBookTab2,btnCheckIDMemberTab2;
 	@FXML
 	private TextField tfSearchBookTab2, tfSearchIDMemberTab2;
-	
 	@FXML
 	private Label lbNameTab2,lbEmailTab2;
+	
+	
 	
 	@FXML
 	private TableView<DetailBill> tbvDetailBill;
 	private ObservableList<DetailBill> listDetailBill;
 	private List<DetailBill> listSelectedDBill = new ArrayList<DetailBill>();
-	
-	
 	@FXML
-	private TableColumn<DetailBill, String> idBookColTab3;
-	@FXML
-	private TableColumn<DetailBill, String> nameBookColTab3;
+	private TableColumn<DetailBill, String> idBookColTab3,stateColTab3,nameBookColTab3;
 	@FXML
 	private TableColumn<DetailBill, Date> returnDateColTab3;
-	@FXML
-	private TableColumn<DetailBill, String> stateColTab3;
 	@FXML
 	private TableColumn<DetailBill, Boolean> checkColTab3;
 	
@@ -110,6 +118,19 @@ public class BorrowController implements Initializable{
 		// TODO Auto-generated method stub
 		initTbvBookInfoTab2();
 		initTbvDetailBill();
+		initTbvBookBill();
+		tabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+			 @Override
+		     public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+				 if(t1.equals(tabListBorrow)) {
+					 refresh(tabListBorrow);
+				 }else if(t1.equals(tabCreateBill)) {
+					 refresh(tabCreateBill);
+				 }else if(t1.equals(tabReturnBook)) {
+					 refresh(tabReturnBook);
+				 }
+		     }
+		});
 	}
 	
 	
@@ -160,6 +181,9 @@ public class BorrowController implements Initializable{
 	     });
 		
 		listBookInfo = FXCollections.observableArrayList(bookDAO.getAllBook());
+		for (Book book : listBookInfo) {
+			if(book.getRemain()<=0) listBookInfo.remove(book);
+		}
 		tbvBookInfoTab2.setItems(listBookInfo);
 		tbvBookInfoTab2.setEditable(true);
 	}
@@ -211,6 +235,19 @@ public class BorrowController implements Initializable{
 		tbvDetailBill.setEditable(true);
 	}
 	
+	public void initTbvBookBill() {
+		idBillColTab1.setCellValueFactory(new PropertyValueFactory<BookBill,String>("id_bill"));
+		idBookColTab1.setCellValueFactory(new PropertyValueFactory<BookBill,String>("id_book"));
+		nameBookColTab1.setCellValueFactory(new PropertyValueFactory<BookBill,String>("name_book"));
+		idMemberColTab1.setCellValueFactory(new PropertyValueFactory<BookBill,String>("id_member"));
+		nameMemberColTab1.setCellValueFactory(new PropertyValueFactory<BookBill,String>("name_member"));
+		dateColTab1.setCellValueFactory(new PropertyValueFactory<BookBill,Date>("borrowing_date"));
+		stateColTab1.setCellValueFactory(new PropertyValueFactory<BookBill,String>("name_state"));
+		
+		listBookBill = FXCollections.observableArrayList(borrowDAO.getBookBillInfo(null));
+		tbvBookBill.setItems(listBookBill);
+	}
+	
 	
 	public void searchBook(ActionEvent evt) {
 		String str = tfSearchBookTab2.getText();
@@ -240,6 +277,20 @@ public class BorrowController implements Initializable{
 			lbIDMemberTab3.setText("");
 			lbIDStaffTab3.setText("");
 			lbNameMemberTab3.setText("");
+		}else if(tab == tabListBorrow) {
+			listBookBill.clear();
+			listBookBill.addAll(borrowDAO.getBookBillInfo(null));
+		}
+	}
+	
+	public void showTab(ActionEvent evt) {
+		if(evt.getSource() == btnCreateBillTab) {
+			tabPane.getSelectionModel().select(tabCreateBill);
+//			refresh(tab);
+		}else if(evt.getSource() == btnListBorrowTab || evt.getSource() == btnBigbtn) {
+			tabPane.getSelectionModel().select(tabListBorrow);
+		}else if(evt.getSource() == btnReturnBookTab) {
+			tabPane.getSelectionModel().select(tabReturnBook);
 		}
 	}
 
@@ -319,11 +370,13 @@ public class BorrowController implements Initializable{
 			return;
 		}
 		if(tmpList.size()==0) {
-			Alert alert = new Alert(AlertType.ERROR, "Id bill is wrong", ButtonType.OK);
+			Alert alert = new Alert(AlertType.INFORMATION, "Data is Empty", ButtonType.OK);
 			alert.setHeaderText(null);
 			alert.showAndWait();
+			refresh(tabReturnBook);
 			return;
 		}
+		
 		listDetailBill.clear();
 		listDetailBill.addAll(tmpList);
 		
