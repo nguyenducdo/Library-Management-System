@@ -29,7 +29,7 @@ public class LoginController implements Initializable{
 	private TextField tfUsername;
 	@FXML
 	private PasswordField pfPass;
-	
+	public static int ID_STAFF = -1;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -50,8 +50,7 @@ public class LoginController implements Initializable{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/Home.fxml"));
 			Parent root = loader.load();
-			HomeController homeController = loader.getController();
-			homeController.setIdStaffLogin(staff.getId());
+			ID_STAFF = staff.getId();
 			Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 			stage.setScene(new Scene(root));
 		} catch (IOException e) {

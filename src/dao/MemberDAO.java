@@ -10,9 +10,9 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
 import model.Book;
-import model.BookDTO;
 import model.BorrowingInfo;
 import model.Member;
+import model.ClassDTO.BookDTO;
 
 public class MemberDAO {
 	public List<Member> getAllMember() {

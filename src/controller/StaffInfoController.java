@@ -36,32 +36,11 @@ public class StaffInfoController implements Initializable{
 	private Button btnUpdate, btnSave, btnCancel, btnChangeAvatar;
 	@FXML
 	private RadioButton radioMale, radioFemale;
-	
-	private int idStaffLogin;
 	private final StaffDAO staffDAO = new StaffDAO();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-//		changeStateComponent(false);
-	}
-	
-	/**
-	 * @return the idStaffLogin
-	 */
-	public final int getIdStaffLogin() {
-		return idStaffLogin;
-	}
-
-	/**
-	 * @param idStaffLogin the idStaffLogin to set
-	 */
-	public final void setIdStaffLogin(int idStaffLogin) {
-		if(idStaffLogin==-1) {
-			System.out.println("Error id staff");
-			return;
-		}
-		this.idStaffLogin = idStaffLogin;
 		refresh();
 	}
 
@@ -70,7 +49,7 @@ public class StaffInfoController implements Initializable{
 	}
 
 	public void refresh() {
-		Staff staffLogin = staffDAO.getUser(idStaffLogin);
+		Staff staffLogin = staffDAO.getUser(LoginController.ID_STAFF);
 		changeStateComponent(false);
 		lbID.setText(staffLogin.getId()+"");
 		tfName.setText(staffLogin.getName()+"");
@@ -113,7 +92,7 @@ public class StaffInfoController implements Initializable{
 		String username = tfUser.getText();
 		String password = pfPass.getText();
 		int gender = radioMale.isSelected()?1:0;
-		staffDAO.modifyStaffInfo(new Staff(idStaffLogin, name, gender, address, tel, email, username, password));
+		staffDAO.modifyStaffInfo(new Staff(LoginController.ID_STAFF, name, gender, address, tel, email, username, password));
 		refresh();
 	}
 	

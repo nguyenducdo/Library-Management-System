@@ -2,11 +2,17 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+
+import dao.DBConnection;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -30,12 +36,10 @@ public class HomeController	implements Initializable{
 	private Button btnBookInformation, btnStaffInformation, btnLogout, btnMember,btnBorrow;
 	private Parent parentBookInfo, parentStaffInfo;
 	
-	private static int idStaffLogin = -1;
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+		updateDB();
 	}
 	
 	public void changeScene(ActionEvent e) {
@@ -58,8 +62,6 @@ public class HomeController	implements Initializable{
 				FXMLLoader loader = new FXMLLoader();
 					loader.setLocation(getClass().getResource("/view/StaffInformation.fxml"));
 					parentStaffInfo = loader.load();
-					StaffInfoController staffInfoController = loader.getController();
-					staffInfoController.setIdStaffLogin(idStaffLogin);
 					stage.setScene(new Scene(parentStaffInfo));
 				
 			}else if(e.getSource() == btnLogout) {
@@ -81,21 +83,20 @@ public class HomeController	implements Initializable{
 		System.out.println("Time : "+(end-start));
 	}
 
-	/**
-	 * @return the idStaffLogin
-	 */
-	public final int getIdStaffLogin() {
-		return idStaffLogin;
-	}
-
-	/**
-	 * @param idStaffLogin the idStaffLogin to set
-	 */
-	public final void setIdStaffLogin(int idStaffLogin) {
-		this.idStaffLogin = idStaffLogin;
-	}
-
 	
-	
+	public void updateDB() {
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = (PreparedStatement) cnn.prepareStatement("call update_state()");
+			ps.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+	}
 	
 }

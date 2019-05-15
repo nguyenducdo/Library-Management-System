@@ -26,9 +26,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
 import model.Book;
-import model.BookDTO;
 import model.Category;
 import model.Publisher;
+import model.ClassDTO.BookDTO;
 
 public class ModifyBookController implements Initializable{
 	@FXML

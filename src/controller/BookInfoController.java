@@ -50,9 +50,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Book;
-import model.BookDTO;
 import model.Category;
 import model.Publisher;
+import model.ClassDTO.BookDTO;
 
 public class BookInfoController implements Initializable{
 	
@@ -72,7 +72,7 @@ public class BookInfoController implements Initializable{
 		return tabBooks;
 	}
 	
-	// get table, columns, data list in tabBooks
+	// get table, columns, data listSelectedBook in tabBooks
 	@FXML
 	private TableView<BookDTO> tbvBookInfo;
 	@FXML
@@ -100,7 +100,7 @@ public class BookInfoController implements Initializable{
 	private ObservableList<BookDTO> listBook;
 	
 	
-	// get table, columns, data list in tabCategories
+	// get table, columns, data listSelectedBook in tabCategories
 	@FXML
 	private TableView<Category> tbvCategories;
 	@FXML
@@ -111,7 +111,7 @@ public class BookInfoController implements Initializable{
 	private ObservableList<Category> listCategories;
 	
 	
-	// get table, columns, data list in tabPublisher
+	// get table, columns, data listSelectedBook in tabPublisher
 	@FXML
 	private TableView<Publisher> tbvPublisher;
 	@FXML

@@ -11,8 +11,8 @@ import com.mysql.jdbc.PreparedStatement;
 import com.sun.javafx.beans.IDProperty;
 
 import model.Book;
-import model.BookDTO;
 import model.Category;
+import model.ClassDTO.BookDTO;
 
 public class BookDAO{
 
