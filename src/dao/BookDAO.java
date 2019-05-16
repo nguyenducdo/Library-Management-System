@@ -10,6 +10,9 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.sun.javafx.beans.IDProperty;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import model.Book;
 import model.Category;
 import model.ClassDTO.BookDTO;
@@ -170,7 +173,9 @@ public class BookDAO{
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR,"Book already borrowed",ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
 		}finally {
 			DBConnection.close(rs, ps, cnn);
 		}

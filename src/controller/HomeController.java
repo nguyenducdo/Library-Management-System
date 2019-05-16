@@ -33,7 +33,7 @@ import model.Staff;
 
 public class HomeController	implements Initializable{
 	@FXML
-	private Button btnBookInformation, btnStaffInformation, btnLogout, btnMember,btnBorrow;
+	private Button btnBookInformation, btnStaffInformation, btnLogout, btnMember,btnBorrow,btnStatistics;
 	private Parent parentBookInfo, parentStaffInfo;
 	
 	@Override
@@ -72,6 +72,9 @@ public class HomeController	implements Initializable{
 				stage.setScene(new Scene(root));
 			}else if(e.getSource() == btnBorrow) {
 				Parent root = FXMLLoader.load(getClass().getResource("/view/BorrowBooksManagement.fxml"));
+				stage.setScene(new Scene(root));
+			}else if(e.getSource() == btnStatistics) {
+				Parent root = FXMLLoader.load(getClass().getResource("/view/Statistics.fxml"));
 				stage.setScene(new Scene(root));
 			}
 		} catch (IOException e1) {

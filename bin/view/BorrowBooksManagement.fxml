@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -83,6 +84,9 @@
                      <GridPane.margin>
                         <Insets left="5.0" />
                      </GridPane.margin>
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
                   </Button>
                </children>
             </GridPane>

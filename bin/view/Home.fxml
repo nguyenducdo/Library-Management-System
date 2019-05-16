@@ -34,7 +34,7 @@
                   <FontAwesomeIconView fill="#2d75e8" glyphName="CREDIT_CARD" size="60" />
                </graphic>
             </Button>
-            <Button fx:id="btn_Timetable" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@HomeDecorate/HomeStyle.css" text="Statistics" GridPane.columnIndex="2">
+            <Button fx:id="btnStatistics" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeScene" stylesheets="@HomeDecorate/HomeStyle.css" text="Statistics" GridPane.columnIndex="2">
                <graphic>
                   <FontAwesomeIconView fill="#2d75e8" glyphName="BAR_CHART" size="60" />
                </graphic>
