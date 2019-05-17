@@ -1,20 +1,30 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 
 import dao.StatisticsDAO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +34,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import model.ClassDTO.FavoriteBook;
+import model.ClassDTO.StatisticsBorrow;
 
 public class StatisticsController implements Initializable{
 	StatisticsDAO statisticsDAO = new StatisticsDAO();
@@ -31,8 +42,6 @@ public class StatisticsController implements Initializable{
 	private PieChart pieChartTab1;
 	@FXML
 	private VBox vBoxTab1;
-	@FXML
-	private BarChart<Date, Number> barChartTable2;
 	
 	@FXML
 	private Label lbName1,lbName2,lbName3,lbName4,lbName5,lbName6;
@@ -42,6 +51,11 @@ public class StatisticsController implements Initializable{
 	private Label lbCount1,lbCount2,lbCount3,lbCount4,lbCount5,lbCount6;
 	
 	@FXML
+	private LineChart<String, Number> lineChartTab2;
+	@FXML
+	private ComboBox<Integer> cbYearTab2;
+	
+	@FXML
 	private BorderPane borderPaneTab1;
 	
 	@Override
@@ -49,6 +63,7 @@ public class StatisticsController implements Initializable{
 		// TODO Auto-generated method stub
 		initTab1();
 		initTab2();
+		initTab3();
 	}
 	
 	public void initTab1() {
@@ -75,9 +90,9 @@ public class StatisticsController implements Initializable{
 			}
 		});
 		
-		 final Label caption = new Label("");
-		 caption.setTextFill(Color.AQUAMARINE);
-	      caption.setStyle("-fx-font: 12 arial;");
+		 Label caption = new Label("");
+		 caption.setTextFill(Color.BLACK);
+	     caption.setStyle("-fx-font: 12 arial;");
 		
 		for (PieChart.Data data : pieChartTab1.getData()) {
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
@@ -93,8 +108,21 @@ public class StatisticsController implements Initializable{
 		borderPaneTab1.getChildren().add(caption);
 	}
 	
-	
 	public void initTab2() {
+		ObservableList<Integer> listYear  = FXCollections.observableArrayList(statisticsDAO.getYear());
+//		ObservableList<Integer> listYear  = FXCollections.observableArrayList();
+		cbYearTab2.setItems(listYear);
+		cbYearTab2.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				System.out.println("Click " + cbYearTab2.getSelectionModel().getSelectedItem());
+				changeChart(cbYearTab2.getSelectionModel().getSelectedItem());
+			}
+		});
+	}
+	
+	public void initTab3() {
 		List<FavoriteBook> list = statisticsDAO.getFavoriteBook();
 		FavoriteBook fb;
 		fb = list.get(0);
@@ -132,5 +160,28 @@ public class StatisticsController implements Initializable{
 		lbAuthor6.setText(fb.getAuthor());
 		lbCount6.setText(fb.getCount() + " times" );
 		lbName6.setTooltip(new Tooltip(lbName6.getText()));
+	}
+	
+	public void turnBack(ActionEvent evt) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
+			Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
+			stage.setScene(new Scene(root));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void changeChart(int year) {
+		lineChartTab2.getData().clear();
+		XYChart.Series<String, Number> series = new XYChart.Series<String,Number>();
+		List<StatisticsBorrow> listStBorrow = statisticsDAO.getBorrowInfoInYear(year);
+		for(StatisticsBorrow st : listStBorrow) {
+			System.out.println(st.getMonth() + "  " + st.getCount());
+			series.getData().add(new XYChart.Data<String, Number>(st.getMonth(),st.getCount()));
+		}
+		series.setName("Year "+year);
+		lineChartTab2.getData().add(series);
 	}
 }

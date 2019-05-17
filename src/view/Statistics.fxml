@@ -3,16 +3,18 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
-<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -46,29 +48,13 @@
                         </BorderPane>
                      </content>
                   </Tab>
-                  <Tab text="Borrowing &amp; Return">
+                  <Tab text="Situation">
                      <content>
                         <BorderPane prefHeight="404.0" prefWidth="735.0">
-                           <center>
-                              <BarChart fx:id="barChartTab2" barGap="0.0" legendSide="RIGHT" prefHeight="416.0" prefWidth="925.0" titleSide="LEFT" BorderPane.alignment="CENTER">
-                                 <xAxis>
-                                    <CategoryAxis label="Date" side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis label="Count" side="LEFT" upperBound="50.0">
-                                       <tickLabelFont>
-                                          <Font size="10.0" />
-                                       </tickLabelFont></NumberAxis>
-                                 </yAxis>
-                                 <BorderPane.margin>
-                                    <Insets bottom="5.0" />
-                                 </BorderPane.margin>
-                              </BarChart>
-                           </center>
                            <top>
-                              <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="73.0" prefWidth="925.0" BorderPane.alignment="CENTER">
+                              <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="53.0" prefWidth="925.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="Borrowing &amp; Return">
+                                    <Label text="Situation">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
@@ -76,6 +62,25 @@
                                  </children>
                               </HBox>
                            </top>
+                           <center>
+                              <AnchorPane BorderPane.alignment="CENTER">
+                                 <children>
+                                    <ComboBox fx:id="cbYearTab2" layoutX="761.0" layoutY="2.0" prefWidth="150.0" promptText="Select year" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                                    <LineChart fx:id="lineChartTab2" alternativeColumnFillVisible="true" prefHeight="362.0" prefWidth="925.0" verticalZeroLineVisible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                      <xAxis>
+                                        <CategoryAxis animated="false" endMargin="10.0">
+                                             <rotationAxis>
+                                                <Point3D />
+                                             </rotationAxis>
+                                          </CategoryAxis>
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                 </children>
+                              </AnchorPane>
+                           </center>
                         </BorderPane>
                      </content>
                   </Tab>
@@ -399,6 +404,9 @@
                      <GridPane.margin>
                         <Insets left="5.0" />
                      </GridPane.margin>
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
                   </Button>
                   <Button alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="31.0" prefWidth="88.0" text="Total books" GridPane.columnIndex="1" GridPane.columnSpan="2">
                      <graphic>
@@ -456,7 +464,7 @@
    <bottom>
       <HBox prefHeight="25.0" prefWidth="800.0" style="-fx-background-color: #e6e6e6;" BorderPane.alignment="CENTER">
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" styleClass="btnBack" stylesheets="@StatisticsDecorate/StatisticsStyle.css" text="Turn Back">
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#turnBack" prefHeight="26.0" prefWidth="103.0" styleClass="btnBack" stylesheets="@StatisticsDecorate/StatisticsStyle.css" text="Turn Back">
                <graphic>
                   <FontAwesomeIconView fill="#ee0606" glyphName="REPLY" size="16" wrappingWidth="21.0" />
                </graphic>
