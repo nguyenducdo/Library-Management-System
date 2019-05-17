@@ -96,16 +96,15 @@ public class StatisticsDAO {
 			ps = (PreparedStatement) cnn.prepareStatement("select month(borrowing_date) as month, count(month(borrowing_date)) as total " + 
 					"from borrow_book b, detail_bill d " + 
 					"where b.id_bill = d.id_bill and year(borrowing_date) = ? " + 
-					"group by month(borrowing_date)");
+					"group by month(borrowing_date) "
+					+ "ORDER BY month ASC");
 			ps.setInt(1, year);
 			rs = ps.executeQuery();
 			list = new ArrayList<StatisticsBorrow>();
 			int index = 1;
 			while(rs.next()) {
-				System.out.println("index: " + index);
 				int month = rs.getInt("month");
 				int count = rs.getInt("total");
-				System.out.println("in DAO: " +  month + " - "+count);
 				if(index != month) {
 					while(index != month) {
 						list.add(new StatisticsBorrow(0, getNameMonth(index++)));
