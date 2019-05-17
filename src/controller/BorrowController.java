@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -50,7 +49,6 @@ import model.BorrowingInfo;
 import model.DetailBill;
 import model.Member;
 import model.ClassDTO.BookBill;
-import model.ClassDTO.LostedBook;
 
 public class BorrowController implements Initializable{
 	@FXML
@@ -59,7 +57,7 @@ public class BorrowController implements Initializable{
 	@FXML
 	private Tab tabCreateBill, tabReturnBook,tabListBorrow,tabLost;
 	@FXML
-	private Button btnCreateBillTab, btnListBorrowTab, btnReturnBookTab,btnBigbtn,btnLostedBooks;
+	private Button btnCreateBillTab, btnListBorrowTab, btnReturnBookTab,btnBigbtn;
 	
 	
 	@FXML
@@ -304,8 +302,6 @@ public class BorrowController implements Initializable{
 			tabPane.getSelectionModel().select(tabListBorrow);
 		}else if(evt.getSource() == btnReturnBookTab) {
 			tabPane.getSelectionModel().select(tabReturnBook);
-		}else if(evt.getSource() == btnLostedBooks) {
-			tabPane.getSelectionModel().select(tabLost);
 		}
 	}
 
