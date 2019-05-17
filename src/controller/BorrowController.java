@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -18,6 +19,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -47,15 +50,16 @@ import model.BorrowingInfo;
 import model.DetailBill;
 import model.Member;
 import model.ClassDTO.BookBill;
+import model.ClassDTO.LostedBook;
 
 public class BorrowController implements Initializable{
 	@FXML
 	private TabPane tabPane;
 	
 	@FXML
-	private Tab tabCreateBill, tabReturnBook,tabListBorrow;
+	private Tab tabCreateBill, tabReturnBook,tabListBorrow,tabLost;
 	@FXML
-	private Button btnCreateBillTab, btnListBorrowTab, btnReturnBookTab,btnBigbtn;
+	private Button btnCreateBillTab, btnListBorrowTab, btnReturnBookTab,btnBigbtn,btnLostedBooks;
 	
 	
 	@FXML
@@ -65,7 +69,8 @@ public class BorrowController implements Initializable{
 	private TableColumn<BookBill, String> idBillColTab1,idBookColTab1,nameBookColTab1,idMemberColTab1,nameMemberColTab1,stateColTab1;
 	@FXML
 	private TableColumn<BookBill, Date> dateColTab1;
-	
+	@FXML
+	private ComboBox<String> cbState;
 	
 	@FXML
 	private TableView<Book> tbvBookInfoTab2;
@@ -106,7 +111,7 @@ public class BorrowController implements Initializable{
 	private TextField tfSearchBillTab3;
 	@FXML
 	private Label lbIDMemberTab3, lbNameMemberTab3, lbIDStaffTab3, lbBorrowingDateTab3;
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -122,6 +127,8 @@ public class BorrowController implements Initializable{
 					 refresh(tabCreateBill);
 				 }else if(t1.equals(tabReturnBook)) {
 					 refresh(tabReturnBook);
+				 }else if(t1.equals(tabLost)) {
+					 refresh(tabLost);
 				 }
 		     }
 		});
@@ -238,8 +245,20 @@ public class BorrowController implements Initializable{
 		dateColTab1.setCellValueFactory(new PropertyValueFactory<BookBill,Date>("borrowing_date"));
 		stateColTab1.setCellValueFactory(new PropertyValueFactory<BookBill,String>("name_state"));
 		
-		listBookBill = FXCollections.observableArrayList(borrowDAO.getBookBillInfo(null));
+		listBookBill = FXCollections.observableArrayList(borrowDAO.getBookBillInfo(null,-1));
 		tbvBookBill.setItems(listBookBill);
+		
+		cbState.setItems(FXCollections.observableArrayList(borrowDAO.getAllState()));
+		cbState.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				listBookBill.clear();
+				listBookBill.addAll(borrowDAO.getBookBillInfo(null, cbState.getSelectionModel().getSelectedIndex()));
+			}
+		});
+		cbState.getSelectionModel().selectFirst();
+		stateColTab1.setMaxWidth(130);
 	}
 	
 	
@@ -273,7 +292,7 @@ public class BorrowController implements Initializable{
 			lbNameMemberTab3.setText("");
 		}else if(tab == tabListBorrow) {
 			listBookBill.clear();
-			listBookBill.addAll(borrowDAO.getBookBillInfo(null));
+			listBookBill.addAll(borrowDAO.getBookBillInfo(null,cbState.getSelectionModel().getSelectedIndex()));
 		}
 	}
 	
@@ -285,6 +304,8 @@ public class BorrowController implements Initializable{
 			tabPane.getSelectionModel().select(tabListBorrow);
 		}else if(evt.getSource() == btnReturnBookTab) {
 			tabPane.getSelectionModel().select(tabReturnBook);
+		}else if(evt.getSource() == btnLostedBooks) {
+			tabPane.getSelectionModel().select(tabLost);
 		}
 	}
 
@@ -398,4 +419,23 @@ public class BorrowController implements Initializable{
 		alert2.showAndWait();
 		searchDetailBill(evt);
 	}
+	
+	public void reportLosted(ActionEvent evt) {
+		if(listSelectedDBill.size()==0) {
+			Alert alert = new Alert(AlertType.ERROR,"Error...",ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+			return;
+		}
+		Alert alert = new Alert(AlertType.CONFIRMATION,"Are you sure?",ButtonType.YES, ButtonType.NO);
+		alert.setHeaderText(null);
+		Optional<ButtonType> optional = alert.showAndWait();
+		if(optional.get() == ButtonType.NO) return;
+		borrowDAO.reportLostedBooks(listSelectedDBill);
+		Alert alert2 = new Alert(AlertType.INFORMATION, "Reported!", ButtonType.OK);
+		alert2.setHeaderText(null);
+		alert2.showAndWait();
+		searchDetailBill(evt);
+	}
+	
 }

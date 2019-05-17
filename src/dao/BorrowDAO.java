@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import model.BorrowingInfo;
 import model.DetailBill;
 import model.ClassDTO.BookBill;
+import model.ClassDTO.LostedBook;
 import model.ClassDTO.SelectedBook;
 
 public class BorrowDAO {
@@ -175,20 +176,39 @@ public class BorrowDAO {
 		}
 	}
 	
-	public List<BookBill> getBookBillInfo(String idBill){
+	public List<BookBill> getBookBillInfo(String idBill, int state){
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<BookBill> listBookBills = null;
-		String condition = "";
-		if(idBill!=null) condition = "and borrow_book.id_bill = '"+idBill+"'";
+		StringBuilder condition = new StringBuilder("");
+		if(state==-1) state = 0;
+		switch (state) {
+		case 0:
+			condition.append("and (state.id_state=0 or state.id_state=4) ");
+			break;
+		case 1:
+			condition.append("and (state.id_state=1 or state.id_state=2) ");
+			break;
+		case 2:
+			condition.append(condition.append("and (state.id_state=2 or state.id_state=4) "));
+			break;
+		case 3:
+			condition.append("and state.id_state=3 ");
+			break;
+		case 4:
+			condition.append("and state.id_state=4 ");
+			break;
+		default:
+			break;
+		}
+		if(idBill!=null) condition.append("and borrow_book.id_bill = '"+idBill+"'");
 		try {
 			String query ="select * from book,borrow_book,detail_bill,member,state " + 
 					"where book.id_book = detail_bill.id_book " + 
 					"and borrow_book.id_bill = detail_bill.id_bill " + 
 					"and borrow_book.id_member = member.id_member " +
-					"and detail_bill.state = state.id_state "+
-					"and (state.id_state=0 or state.id_state=4) " +condition;
+					"and detail_bill.state = state.id_state "+ condition;
 			System.out.println(query);
 			ps = (PreparedStatement) cnn.prepareStatement(query);
 			rs = ps.executeQuery();
@@ -235,5 +255,90 @@ public class BorrowDAO {
 		}finally {
 			DBConnection.close(rs, ps, cnn);
 		}
+	}
+	
+	public void reportLostedBooks(List<DetailBill> listSelectedDBill) {
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			String query = "INSERT INTO lost_book VALUES(?,?,?,?)";
+			ps = (PreparedStatement) cnn.prepareStatement(query);
+			for (DetailBill detailBill : listSelectedDBill) {
+				ps.setString(1, detailBill.getId_bill());
+				ps.setString(2, detailBill.getId_book());
+				ps.setInt(3, LoginController.ID_STAFF);
+				ps.setDate(4, new Date(System.currentTimeMillis()));
+				ps.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+	}
+	
+	public List<LostedBook> getLostedBooks() {
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<LostedBook> listLostedBooks = null;
+		try {
+			String query ="select * from book,borrow_book,detail_bill,member,state,lost_book " + 
+					"where book.id_book = detail_bill.id_book " + 
+					"and borrow_book.id_bill = detail_bill.id_bill " + 
+					"and borrow_book.id_member = member.id_member " +
+					"and detail_bill.state = state.id_state "+
+					"and lost_book.id_bill = detail_bill.id_bill " +
+					"and lost_book.id_book = book.id_book " +
+					"and state.id_state=3";
+			System.out.println(query);
+			ps = (PreparedStatement) cnn.prepareStatement(query);
+			rs = ps.executeQuery();
+			listLostedBooks = new ArrayList<LostedBook>();
+			while(rs.next()) {
+				String id_bill = rs.getString("borrow_book.id_bill");
+				String id_book = rs.getString("book.id_book");
+				String id_isbn = rs.getString("book.id_isbn");
+				String name_book = rs.getString("book.name");
+				String id_member = rs.getString("member.id_member");
+				String name_member = rs.getString("member.name");
+				int id_staff = rs.getInt("borrow_book.id_staff");
+				Date borrowing_date = rs.getDate("borrowing_date");
+				Date return_date = rs.getDate("return_date");
+				String name_state = rs.getString("state.name_state");
+				Date report_date = rs.getDate("report_date");
+				listLostedBooks.add(new LostedBook(id_bill, id_book, id_isbn, name_book, id_member, name_member, id_staff, borrowing_date, return_date, name_state, report_date));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+		return listLostedBooks;
+	}
+	
+	public List<String> getAllState(){
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<String> listState = null;
+		try {
+			String query = "SELECT * FROM state";
+			ps = (PreparedStatement) cnn.prepareStatement(query);
+			rs = ps.executeQuery();
+			listState = new ArrayList<String>();
+			while(rs.next()) {
+				listState.add(rs.getString("name_state"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+		return listState;
 	}
 }
