@@ -62,6 +62,9 @@ public class AddMemberController implements Initializable{
 		memberDAO.add(member);
 		Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 		stage.close();
+		Alert alert2 = new Alert(AlertType.INFORMATION,"Add user successful!",ButtonType.OK);
+		alert2.setHeaderText(null);
+		alert2.showAndWait();
 	}
 
 	

@@ -76,5 +76,8 @@ public class ModifyMemberController {
 		refresh();
 		Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 		stage.close();
+		Alert alert2 = new Alert(AlertType.INFORMATION,"Modify successful!",ButtonType.OK);
+		alert2.setHeaderText(null);
+		alert2.showAndWait();
 	}
 }

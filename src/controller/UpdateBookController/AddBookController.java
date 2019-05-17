@@ -113,6 +113,9 @@ public class AddBookController implements Initializable{
 		
 		Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 		stage.close();
+		Alert alert = new Alert(AlertType.INFORMATION, "Add book successful", ButtonType.OK);
+		alert.setHeaderText(null);
+		alert.showAndWait();
 	}
 	
 	private boolean checkISBN(String ISBN) {

@@ -119,6 +119,9 @@ public class CreateBillController {
 		System.out.println(listSelectedBook.toArray());
 		new BorrowDAO().createBill(new BorrowingInfo(null, this.member.getId(), this.member.getName(), LoginController.ID_STAFF,new Date(System.currentTimeMillis())), listSelectedBook);
 		close(evt);
+		Alert alert2 = new Alert(AlertType.INFORMATION, "Create Successul", ButtonType.OK);
+		alert2.setHeaderText(null);
+		alert2.showAndWait();
 		// BORROWING DATE
 		// create bill
 	}

@@ -150,8 +150,8 @@ public class BookDAO{
 			id_publisher = newBook.getIdPublisher();
 			quantity = newBook.getQuantity();
 			publishing_year = newBook.getPublishingYear();
-			String query = "INSERT INTO book VALUES (null,'"+id_isbn+"','"+name+"','"+author+"','"+id_category+"','"+id_publisher+"','"+publishing_year+"','"+quantity+"')";
-//			System.out.println(query);
+			String query = "INSERT INTO book VALUES (null,'"+id_isbn+"','"+name+"','"+author+"','"+id_category+"','"+id_publisher+"','"+publishing_year+"','"+quantity+"','"+quantity+"')";
+			System.out.println(query);
 			ps = (PreparedStatement) cnn.prepareStatement(query);
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -162,7 +162,7 @@ public class BookDAO{
 		}
 	}
 	
-	public void deleteBook(Book book) {
+	public boolean deleteBook(Book book) {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -173,12 +173,12 @@ public class BookDAO{
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			Alert alert = new Alert(AlertType.ERROR,"Book already borrowed",ButtonType.OK);
-			alert.setHeaderText(null);
-			alert.showAndWait();
+			
+			return false;
 		}finally {
 			DBConnection.close(rs, ps, cnn);
 		}
+		return true;
 	}
 	
 	public void modifyBook(Book book) {
@@ -208,6 +208,49 @@ public class BookDAO{
 		}finally {
 			DBConnection.close(rs, ps, cnn);
 		}
+	}
+	
+	public boolean addMore(Book book,int quantity) {
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = (PreparedStatement) cnn.prepareStatement("UPDATE book SET quantity=quantity+?,remain=remain+? WHERE id_book=?");
+			ps.setInt(1, quantity);
+			ps.setInt(2, quantity);
+			ps.setString(3, book.getIdBook());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+		return true;
+	}
+	
+	public boolean reduceBook(Book book,int quantity) {
+		if(book.getRemain() < quantity) {
+			return false;
+		}
+		Connection cnn = DBConnection.open();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = (PreparedStatement) cnn.prepareStatement("UPDATE book SET quantity=quantity-?,remain=remain-? WHERE id_book=?");
+			ps.setInt(1, quantity);
+			ps.setInt(2, quantity);
+			ps.setString(3, book.getIdBook());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}finally {
+			DBConnection.close(rs, ps, cnn);
+		}
+		return true;
 	}
 	
 }

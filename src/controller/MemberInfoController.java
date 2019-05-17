@@ -326,7 +326,16 @@ public class MemberInfoController implements Initializable{
 		alert.setHeaderText(null);
 		Optional<ButtonType> optional = alert.showAndWait();
 		if(optional.get() == ButtonType.NO) return;
-		memberDAO.delete(member);
+		if(!memberDAO.delete(member)) {
+			Alert alert2 = new Alert(AlertType.ERROR,"Cannot delete this member",ButtonType.OK);
+			alert2.setHeaderText(null);
+			alert2.showAndWait();
+			refresh(tabMembers);
+			return;
+		}
+		Alert alert2 = new Alert(AlertType.INFORMATION,"Delete successful!",ButtonType.OK);
+		alert2.setHeaderText(null);
+		alert2.showAndWait();
 		refresh(tabMembers);
 	}
 	

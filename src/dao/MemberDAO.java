@@ -118,7 +118,7 @@ public class MemberDAO {
 			DBConnection.close(rs, ps, cnn);
 		}
 	}
-	public void delete(Member member) {
+	public boolean delete(Member member) {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -129,10 +129,11 @@ public class MemberDAO {
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			return false;
 		}finally {
 			DBConnection.close(rs, ps, cnn);
 		}
+		return true;
 	}
 	
 }

@@ -399,6 +399,9 @@ public class BorrowController implements Initializable{
 		Optional<ButtonType> optional = alert.showAndWait();
 		if(optional.get() == ButtonType.NO) return;
 		borrowDAO.returnBook(listSelectedDBill);
+		Alert alert2 = new Alert(AlertType.INFORMATION, "Return successful", ButtonType.OK);
+		alert2.setHeaderText(null);
+		alert2.showAndWait();
 		searchDetailBill(evt);
 	}
 }

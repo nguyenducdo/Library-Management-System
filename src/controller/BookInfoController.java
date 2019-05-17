@@ -39,6 +39,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -96,7 +97,7 @@ public class BookInfoController implements Initializable{
 	@FXML
 	private ContextMenu contextBook;
 	@FXML
-	private MenuItem itemModify,itemDelete;
+	private MenuItem itemModify,itemDelete,itemAddMore,itemReduceBook;
 	private ObservableList<BookDTO> listBook;
 	
 	
@@ -357,11 +358,19 @@ public class BookInfoController implements Initializable{
 			alert.showAndWait();
 			return;
 		}
-			Alert alert = new Alert(AlertType.INFORMATION, "delete " +book.toString(), ButtonType.YES, ButtonType.NO);
+			Alert alert = new Alert(AlertType.INFORMATION, "Delete - " + book.getName() + " : " + book.getIdBook() + " ?", ButtonType.YES, ButtonType.NO);
 			alert.setHeaderText(null);
 			Optional<ButtonType> option = alert.showAndWait();
 			if(option.get() == ButtonType.YES) {
-				bookDAO.deleteBook(book);
+				if(!bookDAO.deleteBook(book)) {
+					Alert alert2 = new Alert(AlertType.ERROR,"Book already borrowed",ButtonType.OK);
+					alert2.setHeaderText(null);
+					alert2.showAndWait();
+				}else {
+					Alert alert2 = new Alert(AlertType.INFORMATION, "Delete book successful", ButtonType.OK);
+					alert2.setHeaderText(null);
+					alert2.showAndWait();
+				}
 				refresh(tabBooks);
 			}
 	}
@@ -388,6 +397,82 @@ public class BookInfoController implements Initializable{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public void addMore(ActionEvent evt) {
+		TextInputDialog dialog = new TextInputDialog();
+		 
+		dialog.setTitle("Add more book");
+		dialog.setHeaderText("Enter quantity:");
+		dialog.setContentText("Quantity:");
+		 
+		Optional<String> result = dialog.showAndWait();
+		String input = result.get();
+		try {
+			int quantity = Integer.parseInt(input);
+			if(quantity <= 0) {
+				Alert alert = new Alert(AlertType.ERROR,"number invalid",ButtonType.OK);
+				alert.setHeaderText(null);
+				alert.showAndWait();
+				refresh(tabBooks);
+				return;
+				
+			}
+			if(!bookDAO.addMore(tbvBookInfo.getSelectionModel().getSelectedItem(), quantity)) {
+				Alert alert = new Alert(AlertType.ERROR,"Cannot add more book",ButtonType.OK);
+				alert.setHeaderText(null);
+				alert.showAndWait();
+			}else {
+				Alert alert = new Alert(AlertType.INFORMATION,quantity + " books added",ButtonType.OK);
+				alert.setHeaderText(null);
+				alert.showAndWait();
+			}
+			
+			refresh(tabBooks);
+		}catch (NumberFormatException e) {
+			// TODO: handle exception
+			Alert alert = new Alert(AlertType.ERROR,"please enter number",ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+			return;
+		}
+	}
+	
+	public void reduceBook() {
+		TextInputDialog dialog = new TextInputDialog();
+		 
+		dialog.setTitle("Reduce book");
+		dialog.setHeaderText("Enter quantity:");
+		dialog.setContentText("Quantity:");
+		 
+		Optional<String> result = dialog.showAndWait();
+		String input = result.get();
+		try {
+			int quantity = Integer.parseInt(input);
+			if(quantity <= 0) {
+				Alert alert = new Alert(AlertType.ERROR,"number invalid",ButtonType.OK);
+				alert.setHeaderText(null);
+				alert.showAndWait();
+				return;
+			}
+			if(!bookDAO.reduceBook(tbvBookInfo.getSelectionModel().getSelectedItem(), quantity)) {
+				Alert alert = new Alert(AlertType.ERROR,"Cannot reduce book",ButtonType.OK);
+				alert.setHeaderText(null);
+				alert.showAndWait();
+			}else {
+				Alert alert = new Alert(AlertType.INFORMATION,quantity + " books reduced",ButtonType.OK);
+				alert.setHeaderText(null);
+				alert.showAndWait();
+			}
+			
+			refresh(tabBooks);
+		}catch (NumberFormatException e) {
+			// TODO: handle exception
+			Alert alert = new Alert(AlertType.ERROR,"please enter number",ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+			return;
 		}
 	}
 }

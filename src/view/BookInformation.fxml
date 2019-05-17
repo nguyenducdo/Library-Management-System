@@ -53,7 +53,8 @@
                                        <items>
                                           <MenuItem fx:id="itemModify" mnemonicParsing="false" onAction="#modifyBook" text="Modify book" />
                                           <MenuItem fx:id="itemDelete" mnemonicParsing="false" onAction="#deleteBook" text="Delete" />
-                                          <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                                          <MenuItem fx:id="itemAddMore" mnemonicParsing="false" onAction="#addMore" text="Add more books" />
+                                          <MenuItem fx:id="itemReduceBook" mnemonicParsing="false" onAction="#reduceBook" text="Reduce books" />
                                        </items>
                                     </ContextMenu>
                                  </contextMenu>

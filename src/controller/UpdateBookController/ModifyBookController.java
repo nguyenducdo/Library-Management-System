@@ -66,7 +66,7 @@ public class ModifyBookController implements Initializable{
 		
 		cbCategory.setItems(nameCategories);
 		cbPublisher.setItems(namePublisher);
-		
+		tfQuantity.setEditable(false);
 	}
 	
 	public void setBook(BookDTO modifiedBook) {
@@ -130,6 +130,9 @@ public class ModifyBookController implements Initializable{
 		bookDAO.modifyBook(book);
 		Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 		stage.close();
+		Alert alert2 = new Alert(AlertType.ERROR, "Modify successful", ButtonType.OK);
+		alert2.setHeaderText(null);
+		alert2.showAndWait();
 		
 	}
 	
