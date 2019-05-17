@@ -1,6 +1,5 @@
 package model.ClassDTO;
 
-import dao.BookDAO;
 import model.Book;
 
 public class BookDTO extends Book{

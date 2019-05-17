@@ -1,6 +1,5 @@
 package dao;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,10 +8,7 @@ import java.util.List;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-import model.Book;
-import model.BorrowingInfo;
 import model.Member;
-import model.ClassDTO.BookDTO;
 
 public class MemberDAO {
 	public List<Member> getAllMember() {

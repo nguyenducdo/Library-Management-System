@@ -1,17 +1,11 @@
 package dao;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
-import model.Book;
 import model.Staff;
 
 public class StaffDAO {
@@ -78,7 +72,6 @@ public class StaffDAO {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Staff staff = null;
 		try {
 			ps = (PreparedStatement) cnn.prepareStatement("UPDATE staff SET name=?,address=?,tel=?,email=?,username=?,password=?,gender=? WHERE id = ?");
 			ps.setString(1, newStaff.getName());

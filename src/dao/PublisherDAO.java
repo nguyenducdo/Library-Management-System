@@ -7,9 +7,7 @@ import java.util.List;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
-import com.sun.javafx.beans.IDProperty;
 
-import model.Category;
 import model.Publisher;
 
 public class PublisherDAO {

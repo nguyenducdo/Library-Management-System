@@ -1,7 +1,6 @@
 package controller.DetailController;
 
 import java.sql.Date;
-import java.util.List;
 
 import dao.BorrowDAO;
 import javafx.collections.FXCollections;
@@ -10,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.BorrowingInfo;
 import model.DetailBill;
 
 public class DetailBillController {

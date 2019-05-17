@@ -2,11 +2,8 @@ package view.StageBorrowInfo;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Calendar;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.DateCell;
@@ -63,7 +60,7 @@ public class DatePickerCell<S, T> extends TableCell<SelectedBook, Date> {
         }
     }
 
-    private void setDatepikerDate(Date date) {
+    public void setDatepikerDate(Date date) {
         datePicker.setValue(date.toLocalDate());
     }
 

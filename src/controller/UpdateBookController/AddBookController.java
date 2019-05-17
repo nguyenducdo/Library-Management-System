@@ -1,18 +1,10 @@
 package controller.UpdateBookController;
 
-import java.io.IOException;
 import java.net.URL;
-import java.rmi.server.LoaderHandler;
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.temporal.TemporalField;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import controller.BookInfoController;
 import dao.BookDAO;
 import dao.CategoryDAO;
 import dao.PublisherDAO;
@@ -20,16 +12,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert.AlertType;
 import model.Book;
 import model.Category;
 import model.Publisher;
