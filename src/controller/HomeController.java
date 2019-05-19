@@ -20,22 +20,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class HomeController	implements Initializable{
+public class HomeController	implements Initializable, IHomeController{
 	@FXML
 	private Button btnBookInformation, btnStaffInformation, btnLogout, btnMember,btnBorrow,btnStatistics;
 	private Parent parentBookInfo, parentStaffInfo;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		updateDB();
 	}
-	
+	@Override
 	public void changeScene(ActionEvent e) {
 //		Thread t = new Thread(new Runnable() {
 //			@Override
 //			public void run() {
-//				// TODO Auto-generated method stub
+//				// 
 //				JOptionPane.showMessageDialog(null, "Loading,,,");
 //			}
 //		} );
@@ -67,7 +66,7 @@ public class HomeController	implements Initializable{
 				stage.setScene(new Scene(root));
 			}
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+			// 
 			e1.printStackTrace();
 		}
 //		t.interrupt();
@@ -75,7 +74,7 @@ public class HomeController	implements Initializable{
 		System.out.println("Time : "+(end-start));
 	}
 
-	
+	@Override
 	public void updateDB() {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
@@ -84,7 +83,7 @@ public class HomeController	implements Initializable{
 			ps = (PreparedStatement) cnn.prepareStatement("call update_state()");
 			ps.execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}finally {
 			DBConnection.close(rs, ps, cnn);

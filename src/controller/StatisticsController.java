@@ -25,17 +25,18 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.ClassDTO.FavoriteBook;
 import model.ClassDTO.StatisticsBorrow;
 
-public class StatisticsController implements Initializable{
+public class StatisticsController implements Initializable, IStatisticsController{
 	StatisticsDAO statisticsDAO = new StatisticsDAO();
 	@FXML
 	private PieChart pieChartTab1;
+	@FXML
+	private Label lbValue;
 	@FXML
 	private VBox vBoxTab1;
 	
@@ -50,13 +51,11 @@ public class StatisticsController implements Initializable{
 	private LineChart<String, Number> lineChartTab2;
 	@FXML
 	private ComboBox<Integer> cbYearTab2;
-	
-	@FXML
-	private BorderPane borderPaneTab1;
+
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		// 
 		initTab1();
 		initTab2();
 		initTab3();
@@ -86,22 +85,22 @@ public class StatisticsController implements Initializable{
 			}
 		});
 		
-		 Label caption = new Label("");
-		 caption.setTextFill(Color.BLACK);
-	     caption.setStyle("-fx-font: 12 arial;");
+		lbValue.setText("");
+		lbValue.setTextFill(Color.WHITE);
+		lbValue.setStyle("-fx-font: 12 arial;");
 		
 		for (PieChart.Data data : pieChartTab1.getData()) {
             data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent e) {
-                    caption.setTranslateX(e.getSceneX());
-                    caption.setTranslateY(e.getSceneY());
-                    caption.setText(String.valueOf(data.getPieValue()));
+                	lbValue.setTranslateX(e.getSceneX()-100);
+                	lbValue.setTranslateY(e.getSceneY()-100);
+                	System.out.println(e.getSceneX() + " - " +e.getSceneY());
+                	lbValue.setText(String.valueOf(data.getPieValue()));
                     
                 }
             });
         }
-		borderPaneTab1.getChildren().add(caption);
 	}
 	
 	public void initTab2() {
@@ -111,7 +110,7 @@ public class StatisticsController implements Initializable{
 		cbYearTab2.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
+				// 
 				System.out.println("Click " + cbYearTab2.getSelectionModel().getSelectedItem());
 				changeChart(cbYearTab2.getSelectionModel().getSelectedItem());
 			}
@@ -157,18 +156,20 @@ public class StatisticsController implements Initializable{
 		lbCount6.setText(fb.getCount() + " times" );
 		lbName6.setTooltip(new Tooltip(lbName6.getText()));
 	}
-	
+
+	@Override
 	public void turnBack(ActionEvent evt) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
 			Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 			stage.setScene(new Scene(root));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
 	public void changeChart(int year) {
 		lineChartTab2.getData().clear();
 		XYChart.Series<String, Number> series = new XYChart.Series<String,Number>();

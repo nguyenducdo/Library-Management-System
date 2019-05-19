@@ -9,6 +9,9 @@ import java.util.List;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import model.Book;
 import model.ClassDTO.BookDTO;
 
@@ -181,25 +184,22 @@ public class BookDAO{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			String id_isbn,name,author;
-			int id_category,id_publisher,quantity;
-			Date publishing_year;
-			id_isbn = book.getIdIsbn();
-			name = book.getName();
-			author = book.getAuthor();
-			id_category = book.getIdCategory();
-			id_publisher = book.getIdPublisher();
-			quantity = book.getQuantity();
-			publishing_year = book.getPublishingYear();
-			String query = "UPDATE book SET id_isbn = '" +id_isbn+"', name = '"+name+
-					"', author = '"+author+
-					"', id_category = '"+id_category+"', id_publisher = '"+id_publisher+"', quantity = '"+quantity+"', publishing_year = '"+publishing_year+"' WHERE id_book = '"+book.getIdBook()+"'";
+			String query = "UPDATE book SET id_isbn=?, name=?, author=?, id_category=?, id_publisher=?, publishing_year=? WHERE id_book =?";
 			System.out.println(query);
 			ps = (PreparedStatement) cnn.prepareStatement(query);
+			ps.setString(1, book.getIdIsbn());
+			ps.setString(2, book.getName());
+			ps.setString(3, book.getAuthor());
+			ps.setInt(4, book.getIdCategory());
+			ps.setInt(5, book.getIdPublisher());
+			ps.setDate(6, book.getPublishingYear());
+			ps.setString(7, book.getIdBook());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR,"Error... Cannot modify this book",ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
 		}finally {
 			DBConnection.close(rs, ps, cnn);
 		}

@@ -48,7 +48,7 @@ import model.Category;
 import model.Publisher;
 import model.ClassDTO.BookDTO;
 
-public class BookInfoController implements Initializable{
+public class BookInfoController implements Initializable, IBookInfoController{
 	
 	//Declare DAO
 	private final BookDAO bookDAO = new BookDAO();
@@ -60,6 +60,9 @@ public class BookInfoController implements Initializable{
 	private Tab tabBooks,tabCategories,tabPublisher;
 	@FXML
 	private TabPane tabPane;
+	
+	@FXML
+	private Button btnCategories,btnBook,btnPublisher;
 	
 	//getter
 	public Tab getTabBooks() {
@@ -150,7 +153,7 @@ public class BookInfoController implements Initializable{
 
 			@Override
 			public void handle(ContextMenuEvent event) {
-				// TODO Auto-generated method stub
+				
 				contextBook.show(tbvBookInfo,event.getScreenX(),event.getScreenY());
 			}
 		});
@@ -206,14 +209,12 @@ public class BookInfoController implements Initializable{
 			Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 			stage.setScene(new Scene(root));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
 	
-	@FXML
-	private Button btnCategories,btnBook,btnPublisher;
-	
+	@Override
 	public void showTab(ActionEvent evt) {
 		SelectionModel<Tab> model = tabPane.getSelectionModel();
 		if(evt.getSource() == btnBook) {
@@ -282,6 +283,7 @@ public class BookInfoController implements Initializable{
 	private RadioButton radioSearchByID, radioSearchByName;
 	@FXML
 	private TextField tfSearchCategories;
+	@Override
 	public void searchCategories(ActionEvent evt) {
 		List<Category> listData = null;
 		String key = tfSearchCategories.getText();
@@ -293,7 +295,6 @@ public class BookInfoController implements Initializable{
 			try{
 				Integer.parseInt(key);
 			}catch (NumberFormatException e) {
-				// TODO: handle exception
 				System.out.println("ID khong hop le");
 				return;
 			}
@@ -338,11 +339,10 @@ public class BookInfoController implements Initializable{
 			stage.showAndWait();
 			refresh(tabBooks);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+	@Override
 	public void deleteBook(ActionEvent evt) {
 		BookDTO book = tbvBookInfo.getSelectionModel().getSelectedItem();
 		if(book == null) {
@@ -388,11 +388,11 @@ public class BookInfoController implements Initializable{
 			stage.showAndWait();
 			refresh(tabBooks);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
-	
+	@Override
 	public void addMore(ActionEvent evt) {
 		TextInputDialog dialog = new TextInputDialog();
 		 
@@ -424,14 +424,14 @@ public class BookInfoController implements Initializable{
 			
 			refresh(tabBooks);
 		}catch (NumberFormatException e) {
-			// TODO: handle exception
+		
 			Alert alert = new Alert(AlertType.ERROR,"please enter number",ButtonType.OK);
 			alert.setHeaderText(null);
 			alert.showAndWait();
 			return;
 		}
 	}
-	
+	@Override
 	public void reduceBook() {
 		TextInputDialog dialog = new TextInputDialog();
 		 
@@ -461,7 +461,7 @@ public class BookInfoController implements Initializable{
 			
 			refresh(tabBooks);
 		}catch (NumberFormatException e) {
-			// TODO: handle exception
+
 			Alert alert = new Alert(AlertType.ERROR,"please enter number",ButtonType.OK);
 			alert.setHeaderText(null);
 			alert.showAndWait();

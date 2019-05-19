@@ -51,6 +51,14 @@ public class AddMemberController implements Initializable{
 			alert.showAndWait();
 			return;
 		}
+		
+		if(!tel.matches("\\+?\\d+")) {
+			Alert alert = new Alert(AlertType.ERROR, "Tel number is not valid", ButtonType.OK);
+			alert.setHeaderText(null);
+			alert.showAndWait();
+			return;
+		}
+		
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Add new member?", ButtonType.YES, ButtonType.NO);
 		alert.setHeaderText(null);
 		Optional<ButtonType> optional = alert.showAndWait();

@@ -24,7 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.Staff;
 
-public class StaffInfoController implements Initializable{
+public class StaffInfoController implements Initializable, IStaffInfoController{
 	
 	@FXML
 	private Label lbID;
@@ -40,7 +40,7 @@ public class StaffInfoController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		//
 		refresh();
 	}
 
@@ -48,6 +48,7 @@ public class StaffInfoController implements Initializable{
 		changeStateComponent(true);
 	}
 
+	@Override
 	public void refresh() {
 		Staff staffLogin = staffDAO.getUser(LoginController.ID_STAFF);
 		changeStateComponent(false);
@@ -65,7 +66,8 @@ public class StaffInfoController implements Initializable{
 		pfPass.setText(staffLogin.getPassword());
 		
 	}
-	
+
+	@Override
 	public void changeStateComponent(boolean state) {
 		btnSave.setDisable(!state);
 		btnCancel.setDisable(!state);
@@ -79,7 +81,8 @@ public class StaffInfoController implements Initializable{
 		tfUser.setEditable(state);
 		pfPass.setEditable(state);
 	}
-	
+
+	@Override
 	public void save(ActionEvent evt) {
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Save the changes?", ButtonType.YES, ButtonType.NO);
 		alert.setContentText(null);
@@ -95,18 +98,20 @@ public class StaffInfoController implements Initializable{
 		staffDAO.modifyStaffInfo(new Staff(LoginController.ID_STAFF, name, gender, address, tel, email, username, password));
 		refresh();
 	}
-	
+
+	@Override
 	public void cancel(ActionEvent evt) {
 		turnBack(evt);
 	}
-	
+
+	@Override
 	public void turnBack(ActionEvent evt) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
 			Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 			stage.setScene(new Scene(root));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 	}

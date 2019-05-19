@@ -82,12 +82,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label layoutX="762.0" layoutY="570.0" text="Designed by SDD" textFill="#5b5b5b">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <MaterialDesignIconView fill="#5e5e5e" glyphName="BRUSH" layoutX="901.0" layoutY="590.0" size="20" text="" />
       <HBox alignment="CENTER" layoutX="450.0" layoutY="566.0" prefHeight="31.0" prefWidth="81.0">
          <children>
             <FontAwesomeIconView fill="#ea483c" glyphName="CIRCLE" />
@@ -114,5 +108,13 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Label contentDisplay="RIGHT" layoutX="756.0" layoutY="566.0" text="Designed by SDD" textFill="#666666">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="#666666" glyphName="PAINT_BRUSH" size="16" />
+         </graphic>
+      </Label>
    </children>
 </AnchorPane>

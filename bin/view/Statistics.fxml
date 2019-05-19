@@ -30,10 +30,7 @@
                <tabs>
                   <Tab text="Total Books">
                      <content>
-                        <BorderPane fx:id="borderPaneTab1">
-                           <center>
-                              <PieChart fx:id="pieChartTab1" labelLineLength="30.0" legendSide="RIGHT" prefHeight="184.0" prefWidth="427.0" titleSide="BOTTOM" BorderPane.alignment="CENTER" />
-                           </center>
+                        <BorderPane>
                            <top>
                               <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <children>
@@ -45,6 +42,18 @@
                                  </children>
                               </HBox>
                            </top>
+                           <center>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label fx:id="lbValue">
+                                       <rotationAxis>
+                                          <Point3D />
+                                       </rotationAxis>
+                                    </Label>
+                                    <PieChart fx:id="pieChartTab1" labelLineLength="30.0" legendSide="RIGHT" prefHeight="184.0" prefWidth="427.0" titleSide="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </center>
                         </BorderPane>
                      </content>
                   </Tab>

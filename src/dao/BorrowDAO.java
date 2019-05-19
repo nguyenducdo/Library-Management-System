@@ -14,7 +14,6 @@ import javafx.collections.ObservableList;
 import model.BorrowingInfo;
 import model.DetailBill;
 import model.ClassDTO.BookBill;
-import model.ClassDTO.LostedBook;
 import model.ClassDTO.SelectedBook;
 
 public class BorrowDAO {

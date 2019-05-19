@@ -2,6 +2,7 @@ package controller.UpdateBookController;
 
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -18,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -60,6 +62,14 @@ public class AddBookController implements Initializable{
 		cbCategory.setItems(nameCategories);
 		cbPublisher.setItems(namePublisher);
 		
+		datePicker.setDayCellFactory(picker -> new DateCell() {
+	        public void updateItem(LocalDate date, boolean empty) {
+	            super.updateItem(date, empty);
+	            LocalDate today = LocalDate.now();
+	            setDisable(empty || date.compareTo(today) > 0 );
+	        }
+	    });
+		
 	}
 	
 	public void add(ActionEvent evt) {
@@ -87,16 +97,15 @@ public class AddBookController implements Initializable{
 		int id_publisher = listPublisher.get(indexPub).getIdPublisher();
 		int id_category = listCategory.get(indexCate).getIdCategory();
 		Date publishing_year = Date.valueOf(datePicker.getValue());
-		int quantity=-1;
+		int quantity=0;
 		try {
 			quantity = Integer.parseInt(tfQuantity.getText());
+			if(quantity<1) throw new NumberFormatException();
 		}catch(NumberFormatException e) {
-			if(!checkISBN(id_isbn)) {
 				Alert alert = new Alert(AlertType.ERROR, "Quantity is not valid", ButtonType.OK);
 				alert.setHeaderText(null);
 				alert.showAndWait();
 				return;
-			}
 		}
 		
 		Book newBook = new Book(null, id_isbn, name, author, id_category, id_publisher, publishing_year, quantity,quantity);

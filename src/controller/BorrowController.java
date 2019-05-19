@@ -49,8 +49,9 @@ import model.BorrowingInfo;
 import model.DetailBill;
 import model.Member;
 import model.ClassDTO.BookBill;
+import model.ClassDTO.SelectedBook;
 
-public class BorrowController implements Initializable{
+public class BorrowController implements Initializable, IBorrowController{
 	@FXML
 	private TabPane tabPane;
 	
@@ -112,7 +113,7 @@ public class BorrowController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		
 		initTbvBookInfoTab2();
 		initTbvDetailBill();
 		initTbvBookBill();
@@ -145,7 +146,7 @@ public class BorrowController implements Initializable{
 		checkColTab2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Book,Boolean>, ObservableValue<Boolean>>() {
 			@Override
 			public ObservableValue<Boolean> call(CellDataFeatures<Book, Boolean> param) {
-				// TODO Auto-generated method stub
+				
 				Book book = param.getValue();
 				SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(listSelectedBook.contains(book));
 				booleanProp.addListener(new ChangeListener<Boolean>() {
@@ -195,7 +196,7 @@ public class BorrowController implements Initializable{
 		checkColTab3.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<DetailBill,Boolean>, ObservableValue<Boolean>>() {
 			@Override
 			public ObservableValue<Boolean> call(CellDataFeatures<DetailBill, Boolean> param) {
-				// TODO Auto-generated method stub
+				
 				DetailBill detailBill = param.getValue();
 				SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(listSelectedDBill.contains(detailBill));
 				booleanProp.addListener(new ChangeListener<Boolean>() {
@@ -250,7 +251,6 @@ public class BorrowController implements Initializable{
 		cbState.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
 				listBookBill.clear();
 				listBookBill.addAll(borrowDAO.getBookBillInfo(null, cbState.getSelectionModel().getSelectedIndex()));
 			}
@@ -259,7 +259,7 @@ public class BorrowController implements Initializable{
 		stateColTab1.setMaxWidth(130);
 	}
 	
-	
+	@Override
 	public void searchBook(ActionEvent evt) {
 		String str = tfSearchBookTab2.getText();
 		if(str.isEmpty()) return;
@@ -311,11 +311,11 @@ public class BorrowController implements Initializable{
 			Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 			stage.setScene(new Scene(root));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	@Override
 	public Member checkIDMember(ActionEvent evt) {
 		String key = tfSearchIDMemberTab2.getText();
 		if(key.isEmpty()) {
@@ -361,11 +361,11 @@ public class BorrowController implements Initializable{
 			stage.showAndWait();
 			refresh(tabCreateBill);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	@Override
 	public void searchDetailBill(ActionEvent evt) {
 		String id = tfSearchBillTab3.getText();
 		if(id.isEmpty()) {
@@ -413,6 +413,7 @@ public class BorrowController implements Initializable{
 		Alert alert2 = new Alert(AlertType.INFORMATION, "Return successful", ButtonType.OK);
 		alert2.setHeaderText(null);
 		alert2.showAndWait();
+		listSelectedDBill.clear();
 		searchDetailBill(evt);
 	}
 	
@@ -431,6 +432,7 @@ public class BorrowController implements Initializable{
 		Alert alert2 = new Alert(AlertType.INFORMATION, "Reported!", ButtonType.OK);
 		alert2.setHeaderText(null);
 		alert2.showAndWait();
+		listSelectedDBill.clear();
 		searchDetailBill(evt);
 	}
 	

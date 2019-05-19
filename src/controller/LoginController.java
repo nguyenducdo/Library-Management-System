@@ -1,27 +1,24 @@
 package controller;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import dao.StaffDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.Staff;
 
-public class LoginController implements Initializable{
+public class LoginController implements ILoginController{
 	private final StaffDAO staffDAO = new StaffDAO(); 
 	@FXML
 	private Button btnLogin;
@@ -30,12 +27,8 @@ public class LoginController implements Initializable{
 	@FXML
 	private PasswordField pfPass;
 	public static int ID_STAFF = -1;
+	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void login(ActionEvent evt) {
 		try {
 			Staff staff;
@@ -54,7 +47,7 @@ public class LoginController implements Initializable{
 			Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 			stage.setScene(new Scene(root));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 		

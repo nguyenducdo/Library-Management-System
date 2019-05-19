@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 import model.BorrowingInfo;
 import model.Member;
 
-public class MemberInfoController implements Initializable{
+public class MemberInfoController implements Initializable, IMemberInfoController{
 	private MemberDAO memberDAO = new MemberDAO();
 	private BorrowDAO borrowDAO = new BorrowDAO();
 	@FXML
@@ -115,7 +115,7 @@ public class MemberInfoController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		// 
 		initTbvMemberInfo();
 		initTbvBorrowingInfo();
 		initCbSearch();
@@ -151,7 +151,7 @@ public class MemberInfoController implements Initializable{
 		tbvMemberInfo.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
 			@Override
 			public void handle(ContextMenuEvent event) {
-				// TODO Auto-generated method stub
+				// 
 				contextMember.show(tbvMemberInfo,event.getScreenX(),event.getScreenY());
 			}
 		});
@@ -177,13 +177,15 @@ public class MemberInfoController implements Initializable{
 			            	loader.setLocation(getClass().getResource("/view/StageBorrowInfo/StageBorrowInfo.fxml"));
 		            		Parent root = loader.load();
 							DetailBillController controller = loader.getController();
-							controller.setId_bill(tbvBorrowingInfo.getSelectionModel().getSelectedItem().getId_bill());
+							BorrowingInfo borrowingInfo = tbvBorrowingInfo.getSelectionModel().getSelectedItem();
+							if(borrowingInfo == null) return;
+							controller.setId_bill(borrowingInfo.getId_bill());
 							Stage stage = new Stage();
 							stage.setScene(new Scene(root));
 							stage.initModality(Modality.APPLICATION_MODAL);
 							stage.showAndWait();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
+							// 
 							e.printStackTrace();
 						}
 		            	
@@ -193,6 +195,7 @@ public class MemberInfoController implements Initializable{
 		});
 	}
 	
+	@Override
 	public void searchMemberInfo(ActionEvent evt) {
 		String key = tfSearchMember.getText();
 		if(key.equals("")) {
@@ -222,7 +225,7 @@ public class MemberInfoController implements Initializable{
 		listMembers.clear();
 		listMembers.addAll(memberDAO.searchBy(column,key));
 	}
-	
+	@Override
 	public void showTab(ActionEvent evt) {
 		SelectionModel<Tab> model = tabPane.getSelectionModel();
 		if(evt.getSource() == btnMember) {
@@ -236,7 +239,6 @@ public class MemberInfoController implements Initializable{
 		ObservableList<String> list = FXCollections.observableArrayList(new String[]{"ID","Name","Address","Email","Telephone"});
 		cbSearch.setItems(list);
 	}
-	
 	public void keyEvtHandle(KeyEvent evt) {
 		if(evt.getCode() == KeyCode.BACK_SPACE) {
 			if(evt.getSource() == tfSearchMember) {
@@ -247,17 +249,19 @@ public class MemberInfoController implements Initializable{
 			}
 		}
 	}
+	@Override
 	public void turnBack(ActionEvent evt) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/view/Home.fxml"));
 			Stage stage = (Stage)((Node)evt.getSource()).getScene().getWindow();
 			stage.setScene(new Scene(root));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 	}
 	
+	@Override
 	public void refresh(Tab tab) {
 		if(tab == tabMembers) {
 			listMembers.clear();
@@ -270,6 +274,7 @@ public class MemberInfoController implements Initializable{
 		}
 	}
 	
+	@Override
 	public void modify(ActionEvent evt) {
 		try {
 			Member member = tbvMemberInfo.getSelectionModel().getSelectedItem();
@@ -290,11 +295,12 @@ public class MemberInfoController implements Initializable{
 			stage.showAndWait();
 			refresh(tabMembers);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Override
 	public void add(ActionEvent evt) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -306,11 +312,12 @@ public class MemberInfoController implements Initializable{
 			stage.showAndWait();
 			refresh(tabMembers);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}
 	} 
-	
+
+	@Override
 	public void delete(ActionEvent evt) {
 		Member member = tbvMemberInfo.getSelectionModel().getSelectedItem();
 		if(member == null) {
@@ -336,7 +343,8 @@ public class MemberInfoController implements Initializable{
 		alert2.showAndWait();
 		refresh(tabMembers);
 	}
-	
+
+	@Override
 	public void searchTab2(ActionEvent evt) {
 		if(tfSearchTab2.getText().isEmpty()) {
 			refresh(tabSearchBorrowingInfo);
@@ -349,7 +357,8 @@ public class MemberInfoController implements Initializable{
 			listBorrowingInfo.addAll(borrowDAO.searchBorrowInfo("name", tfSearchTab2.getText()));
 		}
 	}
-	
+
+	@Override
 	public void autoSearch(ActionEvent evt) {
 		radioSearchByID.setSelected(true);
 		tfSearchTab2.setText(tbvMemberInfo.getSelectionModel().getSelectedItem().getId());
