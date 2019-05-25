@@ -45,7 +45,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Book;
-import model.BorrowingInfo;
+import model.Bill;
 import model.DetailBill;
 import model.Member;
 import model.ClassDTO.BookBill;
@@ -391,7 +391,7 @@ public class BorrowController implements Initializable, IBorrowController{
 		listDetailBill.clear();
 		listDetailBill.addAll(tmpList);
 		
-		BorrowingInfo borrowInfo = borrowDAO.searchBorrowInfo("id_bill", id).get(0);
+		Bill borrowInfo = borrowDAO.searchBorrowInfo("id_bill", id).get(0);
 		lbIDMemberTab3.setText("ID Member: " + borrowInfo.getId_member());
 		lbNameMemberTab3.setText("Name: "+borrowInfo.getName_member());
 		lbIDStaffTab3.setText("ID Staff: "+ borrowInfo.getId_staff());

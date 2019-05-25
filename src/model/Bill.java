@@ -2,7 +2,7 @@ package model;
 
 import java.sql.Date;
 
-public class BorrowingInfo {
+public class Bill {
 	
 //	private String id_book;
 //	private String book_name;
@@ -14,7 +14,7 @@ public class BorrowingInfo {
 //	private Date return_date;
 //	private String name_state;
 	
-	public BorrowingInfo(String id_bill, String id_member, String name_member,
+	public Bill(String id_bill, String id_member, String name_member,
 			int id_staff, Date borrowing_date) {
 		super();
 		this.id_bill = id_bill;

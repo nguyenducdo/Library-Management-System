@@ -22,7 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Book;
-import model.BorrowingInfo;
+import model.Bill;
 import model.Member;
 import model.ClassDTO.SelectedBook;
 import view.StageBorrowInfo.DatePickerCell;
@@ -110,7 +110,7 @@ public class CreateBillController {
 		Optional<ButtonType> optional = alert.showAndWait();
 		if(optional.get() == ButtonType.NO) return;
 		System.out.println(listSelectedBook.toArray());
-		new BorrowDAO().createBill(new BorrowingInfo(null, this.member.getId(), this.member.getName(), LoginController.ID_STAFF,new Date(System.currentTimeMillis())), listSelectedBook);
+		new BorrowDAO().createBill(new Bill(null, this.member.getId(), this.member.getName(), LoginController.ID_STAFF,new Date(System.currentTimeMillis())), listSelectedBook);
 		close(evt);
 		Alert alert2 = new Alert(AlertType.INFORMATION, "Create Successul", ButtonType.OK);
 		alert2.setHeaderText(null);

@@ -11,13 +11,13 @@ import com.mysql.jdbc.PreparedStatement;
 
 import controller.LoginController;
 import javafx.collections.ObservableList;
-import model.BorrowingInfo;
+import model.Bill;
 import model.DetailBill;
 import model.ClassDTO.BookBill;
 import model.ClassDTO.SelectedBook;
 
 public class BorrowDAO implements IBorrowDAO{
-	public List<BorrowingInfo> searchBorrowInfo(String column, String key){
+	public List<Bill> searchBorrowInfo(String column, String key){
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -30,20 +30,20 @@ public class BorrowDAO implements IBorrowDAO{
 			}
 		}
 		
-		List<BorrowingInfo> listBorrow = null;
+		List<Bill> listBorrow = null;
 		try {
 			String query = "select * from member,borrow_book where member.id_member = borrow_book.id_member " + condition;
 			System.out.println(query);
 			ps = (PreparedStatement) cnn.prepareStatement(query);
 			rs = ps.executeQuery();
-			listBorrow = new ArrayList<BorrowingInfo>();
+			listBorrow = new ArrayList<Bill>();
 			while(rs.next()) {
 				 String id_bill = rs.getString("id_bill");
 				 String id_member = rs.getString("id_member");
 				 String name_member = rs.getString("name");
 				 int id_staff = rs.getInt("id_staff");
 				 Date borrowing_date = rs.getDate("borrowing_date");
-				 listBorrow.add(new BorrowingInfo(id_bill, id_member, name_member, id_staff, borrowing_date));
+				 listBorrow.add(new Bill(id_bill, id_member, name_member, id_staff, borrowing_date));
 			}
 		} catch (SQLException e) {
 			// 
@@ -135,7 +135,7 @@ public class BorrowDAO implements IBorrowDAO{
 		return listDetail;
 	}
 	
-	public void createBill(BorrowingInfo borrowInfo, ObservableList<SelectedBook> list) {
+	public void createBill(Bill borrowInfo, ObservableList<SelectedBook> list) {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
