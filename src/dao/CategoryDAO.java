@@ -10,7 +10,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 import model.Category;
 
-public class CategoryDAO {
+public class CategoryDAO implements ICategoryDAO{
 	public List<Category> getAllCategory(){
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;

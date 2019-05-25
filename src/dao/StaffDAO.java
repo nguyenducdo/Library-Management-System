@@ -8,7 +8,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 import model.Staff;
 
-public class StaffDAO {
+public class StaffDAO implements IStaffDAO{
 	public Staff getUser(String user, String pass) {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
@@ -31,7 +31,7 @@ public class StaffDAO {
 			}else {
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -60,7 +60,7 @@ public class StaffDAO {
 			}else {
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -84,7 +84,7 @@ public class StaffDAO {
 			ps.setInt(8, newStaff.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}finally {
 			DBConnection.close(rs, ps, cnn);

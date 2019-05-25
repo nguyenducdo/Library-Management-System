@@ -10,7 +10,7 @@ import com.mysql.jdbc.PreparedStatement;
 
 import model.Member;
 
-public class MemberDAO {
+public class MemberDAO implements IMemberDAO{
 	public List<Member> getAllMember() {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
@@ -32,7 +32,7 @@ public class MemberDAO {
 				listMember.add(new Member(id_member, name, gender, address, tel, email));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -64,7 +64,7 @@ public class MemberDAO {
 				listMember.add(new Member(id_member, name, gender, address, tel, email));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -87,7 +87,7 @@ public class MemberDAO {
 			ps.setString(6,member.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -108,7 +108,7 @@ public class MemberDAO {
 			ps.setString(5,member.getTel());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -124,7 +124,7 @@ public class MemberDAO {
 			ps.setString(1, member.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			return false;
 		}finally {
 			DBConnection.close(rs, ps, cnn);

@@ -13,7 +13,7 @@ import com.mysql.jdbc.PreparedStatement;
 import model.ClassDTO.FavoriteBook;
 import model.ClassDTO.StatisticsBorrow;
 
-public class StatisticsDAO {
+public class StatisticsDAO implements IStatisticsDAO{
 	public Map<String, Integer> getTotalBookByCategory(){
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
@@ -27,7 +27,7 @@ public class StatisticsDAO {
 				map.put(rs.getString("name"), rs.getInt("total"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -51,7 +51,7 @@ public class StatisticsDAO {
 					list.add(new FavoriteBook(name, author, count));
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				// 
 				System.out.println(e.getMessage());
 			}finally {
 				DBConnection.close(rs, ps, cnn);
@@ -76,7 +76,7 @@ public class StatisticsDAO {
 				list.add(year);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -116,7 +116,7 @@ public class StatisticsDAO {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);

@@ -16,7 +16,7 @@ import model.DetailBill;
 import model.ClassDTO.BookBill;
 import model.ClassDTO.SelectedBook;
 
-public class BorrowDAO {
+public class BorrowDAO implements IBorrowDAO{
 	public List<BorrowingInfo> searchBorrowInfo(String column, String key){
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
@@ -46,7 +46,7 @@ public class BorrowDAO {
 				 listBorrow.add(new BorrowingInfo(id_bill, id_member, name_member, id_staff, borrowing_date));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -86,7 +86,7 @@ public class BorrowDAO {
 				listDetail.add(new DetailBill(id_book, book_name, id_bill, borrowing_date, return_date, name_state));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -127,7 +127,7 @@ public class BorrowDAO {
 				listDetail.add(new DetailBill(id_book, book_name, id_bill, borrowing_date, return_date, name_state));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -168,7 +168,7 @@ public class BorrowDAO {
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -226,7 +226,7 @@ public class BorrowDAO {
 				listBookBills.add(new BookBill(id_bill, id_book, id_isbn, name_book, id_member, name_member, id_staff, borrowing_date, return_date, name_state));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -249,7 +249,7 @@ public class BorrowDAO {
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -271,7 +271,7 @@ public class BorrowDAO {
 				ps.executeUpdate();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -292,7 +292,7 @@ public class BorrowDAO {
 				listState.add(rs.getString("name_state"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println(e.getMessage());
 		}finally {
 			DBConnection.close(rs, ps, cnn);

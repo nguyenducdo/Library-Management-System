@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="597.0" prefWidth="925.0" style="-fx-background-color: #fff; -fx-background-radius: 100px;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane prefHeight="597.0" prefWidth="899.0" style="-fx-background-color: #fff; -fx-background-radius: 100px;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <AnchorPane layoutX="5.0" layoutY="5.0" prefHeight="597.0" prefWidth="441.0" style="-fx-background-color: #4dd2ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -108,7 +108,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label contentDisplay="RIGHT" layoutX="756.0" layoutY="566.0" text="Designed by SDD" textFill="#666666">
+      <Label contentDisplay="RIGHT" layoutX="738.0" layoutY="566.0" text="Designed by SDD" textFill="#666666">
          <font>
             <Font size="16.0" />
          </font>

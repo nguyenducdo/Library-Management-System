@@ -15,9 +15,10 @@ import javafx.scene.control.Alert.AlertType;
 import model.Book;
 import model.ClassDTO.BookDTO;
 
-public class BookDAO{
-
-	public List<Book> getAllBook() {
+public class BookDAO implements IBookDAO{
+	
+	@Override
+	public List<Book> getAllBook(){
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -43,7 +44,7 @@ public class BookDAO{
 				listBook.add(new Book(id_book,id_isbn,name,author,id_category,id_publisher,publishing_year,quantity,remain));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			System.out.println("ISBN Duplicate");
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -51,6 +52,7 @@ public class BookDAO{
 		return listBook;
 	}
 	
+	@Override
 	public List<BookDTO> getAllBookDTO() {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
@@ -78,7 +80,7 @@ public class BookDAO{
 				listBookDTO.add(new BookDTO(new Book(id_book,id_isbn,name,author,id_category,id_publisher,publishing_year,quantity,remain), namePublisher,nameCategory));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -87,6 +89,7 @@ public class BookDAO{
 		return listBookDTO;
 	}
 	
+	@Override
 	public <T> List<BookDTO> searchBy(String column, T keyw){
 		if(column == null || keyw == null) return getAllBookDTO();
 		String condition;
@@ -123,7 +126,7 @@ public class BookDAO{
 				listBookDTO.add(new BookDTO(new Book(id_book,id_isbn,name,author,id_category,id_publisher,publishing_year,quantity,remain), namePublisher,nameCategory));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}finally {
 			DBConnection.close(rs, ps, cnn);
@@ -132,6 +135,7 @@ public class BookDAO{
 		return listBookDTO;
 	}
 	
+	@Override
 	public void addBook(Book newBook) {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
@@ -153,13 +157,14 @@ public class BookDAO{
 			ps = (PreparedStatement) cnn.prepareStatement(query);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 		}finally {
 			DBConnection.close(rs, ps, cnn);
 		}
 	}
 	
+	@Override
 	public boolean deleteBook(Book book) {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
@@ -170,7 +175,7 @@ public class BookDAO{
 			ps = (PreparedStatement) cnn.prepareStatement(query);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			
 			return false;
 		}finally {
@@ -178,7 +183,8 @@ public class BookDAO{
 		}
 		return true;
 	}
-	
+
+	@Override
 	public void modifyBook(Book book) {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
@@ -196,7 +202,7 @@ public class BookDAO{
 			ps.setString(7, book.getIdBook());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			Alert alert = new Alert(AlertType.ERROR,"Error... Cannot modify this book",ButtonType.OK);
 			alert.setHeaderText(null);
 			alert.showAndWait();
@@ -204,7 +210,8 @@ public class BookDAO{
 			DBConnection.close(rs, ps, cnn);
 		}
 	}
-	
+
+	@Override
 	public boolean addMore(Book book,int quantity) {
 		Connection cnn = DBConnection.open();
 		PreparedStatement ps = null;
@@ -216,7 +223,7 @@ public class BookDAO{
 			ps.setString(3, book.getIdBook());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 			return false;
 		}finally {
@@ -224,7 +231,8 @@ public class BookDAO{
 		}
 		return true;
 	}
-	
+
+	@Override
 	public boolean reduceBook(Book book,int quantity) {
 		if(book.getRemain() < quantity) {
 			return false;
@@ -239,7 +247,7 @@ public class BookDAO{
 			ps.setString(3, book.getIdBook());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// 
 			e.printStackTrace();
 			return false;
 		}finally {
